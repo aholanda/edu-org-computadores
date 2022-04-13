@@ -1,0 +1,23 @@
+
+
+%\usepackage{tikz}
+
+
+\begin{center}
+  \begin{tikzpicture}[pointtrack/.style={->,color=blue}]
+   \node[fill=cyan,circle] at (0,0) {\bf eixo};
+   \foreach \c in {0,...,8} {
+     \draw[thick=2pt] (0,0) circle  (12*\c pt);
+     \draw[loosely dotted,color=white,dotted,thick=3pt] (0,0) circle  (12*\c pt);
+   }
+   \node[color=blue] (track) at (4,-2) {trilhas};
+   \foreach \x in {3,2,1} {
+      \draw[pointtrack] (track) -- (\x,-1);
+    }
+    \node[circle,rounded corners=3mm,very thick,red,draw] (focus) at
+    (-3.2,-1)  {};
+    \node (sector) at (-5,-1) {setores};
+    \draw[->,red]  (sector) -- (focus);
+  \end{tikzpicture}
+\end{center}
+

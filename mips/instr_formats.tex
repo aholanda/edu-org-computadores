@@ -1,0 +1,126 @@
+
+
+
+\def\bit#1{{\tt #1}}
+\def\comment#1{{\tiny #1}}
+\def\linelabel#1{{\tiny #1}}
+
+\def\reg{\only<2>{\color{red}}\only<3->{\color{gray}}}
+\def\immed{\only<3>{\color{red}}\only<2,4->{\color{gray}}}
+\def\jump{\only<4>{\color{red}}\only<2,3,5->{\color{gray}}}
+
+\begin{frame}
+  \frametitle{Instru\c{c}\~oes MIPS} 
+
+% pg 128
+  
+\begin{scriptsize}
+\begin{tabular}[ht]{|l|c|c|c|c|c|c|l|}\hline
+  \multicolumn{1}{|c|}{Nome} & \multicolumn{6}{|c|}{Campos} & \multicolumn{1}{|c|}{Descri\c{c}\~ao} \\ \hline
+  
+  \linelabel{Tamanho} &\bit{6} & \bit{5} & \bit{5} & \bit{5} & \bit{5} & \bit{6} &
+  \comment{Todas as intru\c{c}\~oes MIPS s\~ao de 32 bits} \\ \hline
+  
+  \reg \linelabel{Formato-\bf{R}} & \reg op & \reg rs & \reg rt & \reg
+  rd & \reg \tt{shamt} & \reg funct & \reg
+  \comment{Formato de instru\c{c}\~ao aritm\'etica} \\ \hline
+
+  \immed \linelabel{Formato-\bf{I}} & \immed op & \immed rs & \immed
+  rt &  \multicolumn{3}{|c|}{\immed endere\c{c}o/imediato} &
+  \immed \comment{Formato de transferência, desvio e constante} \\ \hline
+  
+  \jump \linelabel{Formato-\bf{J}} & \jump op & \multicolumn{5}{|c|}{\jump endere\c{c}o} &
+  \jump \comment{Formato de instru\c{c}\~{a}o {\em jump}} \\ \hline
+\end{tabular}
+
+
+\only<1>{
+\vspace{0.64cm}
+% pg 100
+\begin{tabular}[ht]{|l|c|c|c|c|c|c|c|l|}\hline
+
+  \multicolumn{1}{|c|}{Nome} & Formato & \multicolumn{6}{|c|}{Exemplo} & \multicolumn{1}{|c|}{Descri\c{c}\~ao} \\ \hline
+  
+  add & R & 0 & 18 & 19 & 17 & 0 & 32 & add \tt{\$s1,\$s2,\$s3} \\
+  \hline
+
+  sub & R & 0 & 18 & 19 & 17 & 0 & 34 & sub \tt{\$s1,\$s2,\$s3} \\
+  \hline
+
+    addi & I & 35 & 18 & 17 & \multicolumn{3}{|c|}{100} &  addi
+    \tt{\$s1,\$s2,100} \\ \hline
+    
+    lw & I & 43 & 18 & 17 & \multicolumn{3}{|c|}{100} &  lw
+    \tt{\$s1,\$s2,100(\$s2)} \\ \hline
+
+    sw & I & 8 & 18 & 17 & \multicolumn{3}{|c|}{100} &  sw
+    \tt{\$s1,\$s2,100(\$s2)} \\ \hline
+
+   % jr & I & 31 & \multicolumn{5}{|c|}{31} &  jr \tt{\$ra} \\ \hline
+
+\end{tabular}
+} % only 1
+
+\only<2->{
+\begin{block}{\alert<2>{Instru\c{c}\~oes reg-reg (op == 0)}}
+  \only<2>{
+  \begin{tabular}[ht]{ll}
+      -- add, sub, and, or, nor, xor, slt & \texttt{R[rd] $\leftarrow$
+        R[rs] funct R[rt]; \hfill PC $\leftarrow$ PC + 4;} \\
+      -- sll, srl, sra & \texttt{R[rd] $\leftarrow$ R[rt] shift shamt;} \\
+    \end{tabular}
+  }
+\end{block}
+}
+
+\only<3->{
+\begin{block}{\alert<3>{Instru\c{c}\~oes reg-const (op != 0)}}
+  \only<3>{
+  \begin{tabular}[ht]{ll}
+    -- addi, andi, ori, xori  & \texttt{R[rd] $\leftarrow$
+      R[rs] op lm 16}; \\
+      -- lui, addiu, slti, sltiu & \\
+      -- lw, lh, lhu, lb, lbu & \texttt{R[rt] $\leftarrow$ Mem[ R[rs]
+        + signEx(lm 16) ];} \\
+      -- sw, sh, sb & \texttt{Mem[R[rs] + signEx(lm 16)]
+        $\leftarrow$ R[rt];} \\
+    \end{tabular}
+  }
+\end{block}
+}
+
+
+\only<4->{
+\begin{block}{\alert<4>{\em Jumps}}
+  \only<4>{
+  \begin{tabular}[ht]{ll}
+    -- j  & \texttt{PC $\leftarrow$ PC$_{31,28}$ || endere\c{c}o || 00;} \\
+      -- jal & \texttt{PC $\leftarrow$ PC$_{31,28}$ || endere\c{c}o ||
+        00; \hfill R[31] $\leftarrow$ PC + 4;} \\
+      -- jr & \texttt{PC $\leftarrow$ R[rs];} \\
+    \end{tabular}
+  }
+\end{block}
+}
+
+\only<5->{
+\begin{block}{\alert<4>{Desvios}}
+  \only<5>{
+  \begin{tabular}[ht]{ll}
+    -- beq, ben  & \texttt{PC $\leftarrow$ (R[rs] ?= R[rt]) ? PC +
+      signEx(lm 16) : PC + 4;} \\
+      -- blt, bgt, ble, bgte & \texttt{pseudo instru\c{c}\~oes} \\
+    \end{tabular}
+  }
+\end{block}
+}
+
+
+
+\end{scriptsize}
+
+
+\end{frame}
+
+
+

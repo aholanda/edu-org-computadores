@@ -1,0 +1,113 @@
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
+
+\question{5}~Ache a expressão algébrica Booleana para os mapas de
+Karnaugh a seguir:
+
+\begin{enumerate}[a)]
+  
+\begin{minipage}[ht]{.5\linewidth}% tocci book examples
+\item{\tt 0,5}\begin{tikzpicture}[thick]
+\karnaughmap{0011} % a
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+\item{\tt 0,5}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{0101 0101} % c
+\end{tikzpicture}  
+\end{minipage}
+
+\begin{minipage}[ht]{.5\linewidth} % my brain
+\item{\tt 0,5}\begin{tikzpicture}[thick]
+\karnaughmap{1100} % ~a
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+\item{\tt 0,5}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{1010 1010} % c
+\end{tikzpicture}  
+\end{minipage}
+
+
+\begin{minipage}[ht]{.5\linewidth} % tocci
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{0010 0010} % b~c
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{0011 0000} % ~ab
+\end{tikzpicture}  
+\end{minipage}
+
+\begin{minipage}[ht]{.5\linewidth} % my brain
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{0000 1010} % a~c
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=8]{0000 1100} % a~b
+\end{tikzpicture}  
+\end{minipage}
+
+\begin{minipage}[ht]{.5\linewidth} % tocci
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=16]{0001 0001 0001 0001} % cd
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth} % tocci
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=16]{0000 0101 0000 0101} % bd
+\end{tikzpicture}  
+\end{minipage}
+
+\begin{minipage}[ht]{.5\linewidth} % my brain
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=16]{0100 0100 0100 0100} % ~cd
+\end{tikzpicture}  
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth} % tocci
+\item{\tt 1,0}\begin{tikzpicture}[thick]
+\karnaughmap[defaultmap=16]{0000 0101 0000 0101} % bd
+\end{tikzpicture}  
+\end{minipage}
+
+% \begin{minipage}[ht]{.5\linewidth} % notes
+% \item{\tt 1,0}\begin{tikzpicture}[thick]
+% \karnaughmap[defaultmap=16]{0100 0100 0100 1111} % ab + ~cd
+% \end{tikzpicture}  
+% \end{minipage}
+% \begin{minipage}[ht]{.5\linewidth}
+% \item{\tt 1,0}\begin{tikzpicture}[thick]
+% \karnaughmap[defaultmap=16]{0100 0100 1010 1010} % ~a~cd+a~d
+% \end{tikzpicture}  
+% \end{minipage}
+
+\end{enumerate}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BUFFER
+
+% tocci book exercise 4.4
+\question{3,0}~Projete o circuito cuja saída será nível ALTO apenas quando a maioria
+das entradas A, B e C forem nível baixo conforme mostrado na tabela-verdade.
+
+\begin{center}
+\begin{tabular}[ht]{cccc}\hline
+  A & B & C & x \\\hline
+  0 & 0 & 0 & 1 \\
+  0 & 0 & 1 & 1 \\
+  0 & 1 & 0 & 1 \\
+  0 & 1 & 1 & 0 \\
+  1 & 0 & 0 & 1 \\
+  1 & 0 & 1 & 0 \\
+  1 & 1 & 0 & 0 \\
+  1 & 1 & 1 & 0 \\\hline
+\end{tabular}
+\end{center}
+

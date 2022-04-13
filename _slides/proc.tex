@@ -1,0 +1,686 @@
+\def\A{\node{A};}
+\def\B{\node{B};}
+\def\S{\node{S};}
+\def\O{\node{0};}
+\def\I{\node{1};}
+\colorlet{out}{red}
+
+\lecturetitle{PROCESSADORES: Organização e Operação Geral.}{\course}
+\frame{\maketitle}
+
+\section{Organização}
+
+%\begin{frame}
+%  \frametitle{Arquitetura de von Neumann}
+%\input{\imgdir/vonneumann}
+%\end{frame}
+
+\def\side{3cm}
+\def\flabel#1{\scriptsize{#1}}
+\begin{frame}
+  \frametitle{Organização de um computador simples\footnote{\tiny Figura adaptada de Tanenbaum,2007, pg 29.}}
+
+  \begin{tikzpicture}[scale=0.8,
+    boxtext/.style={text width=2cm,text centered, midway}
+    ]
+    %CPU
+    \draw (0,0) rectangle +(\side,\side);
+    \foreach \x / \y in {1/1,2.25/1,1/2,2.25/2} {
+      \def\factor{0.25*\side}
+      \draw (\factor*\x,\factor*\y) rectangle +(0.2*\side,0.1*\side);
+      % draw vertical dots
+      \ifnum\y=1%
+      \node at (\factor*\x+0.1*\side,\factor*\y+0.22*\side) {$\vdots$};
+      \fi
+    }
+    \node at (0.5*\side,0.75*\side) {\flabel{Registradores}};
+    \draw (0,1.1*\side) rectangle +(\side,0.6*\side) 
+    node[boxtext] {\flabel{Unidade l\'ogica e aritm\'etica (ALU)}};
+    \draw (0,1.8*\side) rectangle +(\side,0.5*\side) 
+    node[boxtext] {\flabel{Unidade de controle}};
+    % cpu
+    \draw (-0.25cm,-0.5cm) rectangle +(0.475cm+\side,2.6*\side)
+    node[above] {\flabel{Unidade central de processamento (CPU)}};
+
+    % dev
+    \draw (1.2*\side,0) rectangle +(0.75*\side,0.5*\side) 
+    node[boxtext] {\flabel{Mem\'oria principal}};
+    
+    % I/O
+    \draw (0.25cm+2*\side,0) rectangle +(0.75*\side,0.5*\side) 
+    node[boxtext] {\flabel{Disco}};
+    \draw (3*\side,0) rectangle +(0.75*\side,0.5*\side) 
+    node[boxtext] {\flabel{Impressora}};
+    % I/O label
+    \draw[|-|] (0.2cm+2*\side,0.55*\side) -- +(1.7*\side,0) 
+    node[midway,above] {{\tiny Dispositivos de E/S}};
+
+
+    % bus startx at cpu box
+    \draw[draw=red,very thick] (0.5*\side,-0.5cm) to (0.5*\side,-1cm)
+    to (1.55*\side,-1cm) to (1.55*\side,0)
+    to (1.55*\side,-1cm) to (0.25cm+2.35*\side,-1cm)
+    to (0.25cm+2.35*\side,0) to (0.25cm+2.35*\side,-1cm)
+    to (3.35*\side,-1cm) to (3.35*\side,0)
+    to (3.35*\side,-1cm) to (4.35*\side,-1cm) node[above] {\flabel{Barramento}};
+
+    %% becomes noise
+    %%\node[text width=3cm] at (4*\side,1.75*\side) {\flabel{1 CPU + 2 dispositivos de entrada e saída}};
+  \end{tikzpicture}
+  
+\end{frame}
+
+
+
+%\lecture{Projeto Abstrato}
+\subsection{O Processador}
+\frame{\Large\bf O Processador}
+
+\begin{frame}{Tarefas de um processador}
+  
+  Principais tarefas de um processador MIPS divididas por estágios.
+
+  \begin{description}
+  \item[\em Instruction fetch stage -- IF $\rightarrow$] Recuperar as
+    instruções da memória. \pause
+  \item[\em Instruction decode/register file read stage -- ID $\rightarrow$] Ler os
+    registradores enquanto decodifica a instrução.\pause
+  \item[\em Execution stage -- EX $\rightarrow$] Execução da
+    instrução ou cálculo de um endereço.\pause
+      \item[\em Memory access stage -- MEM $\rightarrow$] Acessar um
+        operando na memória de dados.\pause
+      \item[\em Write back stage -- WB $\rightarrow$] Escreve o
+        resultado no registrador. 
+  \end{description}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Primeiro est\'agio da via de dados}
+\vspace{-0.5cm}
+{\scriptsize Via de dados de busca de instru\c{c}\~oes e incremento do
+  ``contador de programa''(PC)}
+
+\bigskip
+\begin{tikzpicture}
+  \draw (-1.5,1.5) rectangle ++(1,3) node[midway] {PC};
+  \draw[->] (-0.5,3) -- ++(2,0) node[right,text width=2cm]
+  {\scriptsize{Endere\c{c}o} lido};
+  \draw (1.5,0.2) node[above right] {\tiny \bf mem\'oria de instru\c{c}\~oes}rectangle ++(3,3);
+  \node[anchor=east] (instr) at (4.5,1.6) {\scriptsize{Instru\c{c}\~ao}};
+  \draw[->] (instr) -- +(2,0);
+  \node[draw,trapezium,rotate=-90,minimum height=1.2cm,minimum
+  width=1cm] (trap) at (6,4.5) {};
+  \draw (trap)+(-0.6cm,0.6cm) -- +(-0.275,0) node[right] {add} -- +(-0.6cm,-0.6cm);
+  \draw[draw=white] (trap)+(-0.6cm,0.6cm) -- +(-0.6cm,-0.6cm);
+  \draw[<-] (trap)+(-0.6cm,-0.8cm) -- ++(-2cm,-0.8cm) node[left] {4};
+
+  \draw[->] (0.5,3) -- +(0,2.5cm) -- +(4.9,2.5cm);
+  \draw[->] (trap.north) -- +(1,0) -- +(1,2) -- +(-9,2) -- +(-9,-1.5)
+  -- +(-8.1,-1.5);
+\end{tikzpicture}
+
+\end{frame}
+
+
+% \begin{frame}{Visão abstrata de um processador MIPS}
+% \begin{center}
+%    \includegraphics[scale=.35]{\imgdir/proc-mips_subset.png}
+%   \end{center}
+% \end{frame}
+
+
+\begin{frame}{Processador MIPS32 M4K Core}
+{\tiny
+  \begin{tabbing}
+    \noindent \hspace{1cm}\=FMT -- Fixed mapping translation \hspace{.75cm}\=  MDU -- Integer multiply/divide unit\\
+    \noindent \>CP -- CoProcessor \>  \noindent MMU - memory management unit\\
+    \noindent \>SRAM -- Static RAM\\
+\end{tabbing}
+}
+\vspace{-1cm}
+  \includegraphics[scale=.225]{\imgdir/M4KcoreBlockDiagram.png}
+
+  \vfill
+  {\tiny\rm Fonte: MIPS Technologies, Inc. Reproduzida com permissão.}
+
+  \end{frame}
+
+
+\begin{frame}{Processador MIPS}
+  \includegraphics[scale=.25]{\imgdir/M4KcoreBlockDiagram.png}
+\end{frame}
+
+
+
+\begin{frame}{Outros componentes}
+
+  \begin{description}
+
+  \item[{\em Clock}:] pulso uniforme e com frequência fixa que permite a
+    sincronização dos eventos;
+  \item[{\em Flip-flop}:] circuito com $2$ estados estáveis usado para
+    armazenar informações de estado;
+  \item[{\em Latch}:] célula de memória estática;
+  \item[Temporizador:] tipo especializado de {\em clock};
+  \item[Deslocadores:] deslocamento de bits;
+  \item[Registradores] memória do processador.
+  \end{description}
+  
+\end{frame}
+
+
+\def\thetitle{Arquiteturas: RISC x CISC}
+\section{\thetitle}
+\frame{\author{}\date{}\institute{}\title{\thetitle}\titlepage}
+
+\begin{frame}{RISC}{Reduced Instruction Set Computer}
+  Características
+  \begin{itemize}
+  \item Conjunto pequeno e simples de instruções;
+  \item Instruções executadas no hardware, não havendo microprogramação;
+  \item As instruções levam aproximadamente a mesma quantidade de
+    tempo para serem executadas;
+  \item Maior número de registradores para reduzir o número de acessos
+    à memória principal.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{CISC}{Complex Instruction Set Computer}
+  Características:
+
+  \begin{itemize}
+  \item Possui um conjunto grande e complexo de instruções, algumas
+    armazenadas como código de baixo nível no processador, que fornece
+    ao programador de linguagem de montagem uma camada adicional
+    chamada microprogramação.
+  \end{itemize}
+
+\pause
+
+Vantagens e desvantagens com relação à RISC:
+
+\begin{itemize}
+\item Uma vantagem seria fornecer ao programador um número maior de
+  operações que na arquitetura RISC deveriam ser codificadas;
+\item O outro lado da moeda é que algumas otimizações não podem ser
+  feitas na arquitetura CISC devido à impossibilidade de alterar a
+  instrução composta com o objetivo de melhorar o desempenho.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Leitura Adicional}
+
+\begin{thebibliography}{3}
+  \bibitem{tanenbaum2007} [Tanenbaum, 2007]
+    {Andrew S. Tanenbaum},
+  \newblock {Organização Estruturada de Computadores},
+  \newblock {Editora LTC, 2007},
+
+\bibitem{stallings2006}[Stallings, 2006]
+  {William Stallings},
+  \newblock {Arquitetura e Organização de Computadores},
+  \newblock {Makron Books, 2006}
+
+\bibitem{patterson2008}[Patterson, 2008]
+  {David A. Patterson; John L. Hennessy},
+  \newblock                {Computer Organization and Design},
+  \newblock    {Morgan Kaufmann Publisher, 2008},
+
+\end{thebibliography}
+
+\end{frame}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                BUFFER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../mips/instr_formats.tex}
+
+
+\lecture{Componentes}
+
+\section{\insertlecture}
+
+\frame{\Large\bf \insertlecture}
+
+\begin{frame}[fragile]{Multiplexador}
+
+Para $2^n$ linhas de entrada o \alert{multiplexador} seleciona $n$ saídas.\\
+
+Exemplo:
+
+\begin{columns}
+\begin{column}{.4\textwidth}
+
+ \begin{center}
+   \includegraphics[scale=0.4]{../fig/proc-multiplexer.png}
+ \end{center}
+
+\end{column}
+
+\begin{column}{.6\textwidth}
+
+\begin{tikzpicture}[use US style logic gates,
+tiny circuit symbols,
+allgate/.style={minimum width=1.5cm,draw}]
+
+\node [and gate,allgate, logic gate inputs=ni] (a1) {};
+\node (A) [left of=a1,xshift=-10mm,yshift=2mm] {A};
+\node [or gate,draw,allgate] (o) [right of=a1,xshift=15mm,
+yshift=-5mm] {}; \node (C) [right of=o,xshift=10mm] {C};
+\node [and gate,draw, allgate, logic gate inputs=nn] (a2)
+[below of=a1, yshift=-5mm] {};
+\node (B) [left of=a2,xshift=-10mm, yshift=-2mm] {B};
+\node (S) [below of=a2,xshift=-17.5mm] {S};
+
+\draw (A)  -- (a1.input 1);
+\draw (S.east) -- ++(right:3mm) |-  (a1.input 2);
+\draw (S.east) -- ++(right:3mm) |- (a2.input 1);
+\draw (B.east) --  (a2.input 2);
+\draw (a1.output) -- ++(right:3mm) |- (o.input 1);
+\draw (a2.output) -- ++(right:3mm) |- (o.input 2);
+\draw (o.output)  -- (C);
+
+\end{tikzpicture}
+\end{column}  
+\end{columns}
+
+\begin{equation}
+ \label{eq:mux}
+ C = (A\cdot\overline{S})+(B\cdot S)
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[fragile]{Decodificador}
+
+Para $n$ linhas de entrada o \alert{decodificador} gera $2^n$ saídas.\\
+
+Exemplo:
+
+ \begin{center}
+   \includegraphics[scale=0.4]{../fig/proc-decoder.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Multiplexador -- exemplo de uso}
+ \begin{center}
+   \includegraphics[scale=0.4]{../fig/proc-mux_example.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}{\em Clock}
+
+  \begin{itemize}
+  \item<1> Elementos e operações em um ciclo de clock.
+  \item<2> Redução de um elemento de estado devido à escrita ser
+    realizado na borda ascendente do {\bf clock}.
+  \end{itemize}
+  
+  \begin{center}
+    \includegraphics<1>[scale=.5]{../fig/proc-clock_cycle1.png}
+    
+    \includegraphics<2>[scale=.5]{../fig/proc-clock_cycle2.png}
+  \end{center}
+
+\end{frame}
+
+
+\end{frame}
+%%% Local Variables:
+%%% TeX-master: main
+%%% End:
+
+\lecture{O Processador}{theproc}
+
+ \lecturetitle{\insertlecture}{\course}
+
+ \frame{\maketitle}
+ \part{\insertlecture}
+ \frame{\frametitle{Trilha}\tableofcontents}
+
+ \section{Introdução}
+
+\framefigtanenbaum{}
+
+
+\framemipsprocfigure{}
+
+
+ \begin{frame}{Tarefas de um processador}
+
+   Principais tarefas de um processador MIPS divididas por estágios.
+
+   \begin{description}
+   \item[\em Instruction fetch stage -- IF $\rightarrow$] Recuperar as
+     intruções da memória. \pause
+   \item[\em Instruction decode/register file read stage -- ID $\rightarrow$] Ler os
+     registradores enquanto decodifica a instrução.\pause
+   \item[\em Execution stage -- EX $\rightarrow$] Execução da
+     instrução ou cálculo de um endereço.\pause
+       \item[\em Memory access stage -- MEM $\rightarrow$] Acessar um
+         operando na memória de dados.\pause
+       \item[\em Write back stage -- WB $\rightarrow$] Escreve o
+         resultado no registrador. 
+   \end{description}
+
+ \end{frame}
+
+\def\thetitle{Componentes}
+
+\section{\thetitle}
+
+\frame{\author{}\date{}\institute{}\title{\thetitle}\titlepage}
+
+\begin{frame}[fragile]{Multiplexador}
+
+Para $2^n$ linhas de entrada o \alert{multiplexador} seleciona $n$ saídas.\\
+
+Exemplo:
+
+\begin{columns}
+\begin{column}{.4\textwidth}
+
+  \begin{center}
+%    \includegraphics[scale=0.4]{\imgdir/proc-multiplexer.png}
+  \end{center}
+
+\end{column}
+
+\begin{column}{.6\textwidth}
+
+\begin{tikzpicture}[use US style logic gates,
+%tiny circuit symbols,
+allgate/.style={minimum width=1.5cm,draw}]
+
+\node [and gate,allgate, logic gate inputs=ni] (a1) {};
+\node (A) [left of=a1,xshift=-10mm,yshift=2mm] {A};
+\node [or gate,draw,allgate] (o) [right of=a1,xshift=15mm,
+yshift=-5mm] {}; \node (C) [right of=o,xshift=10mm] {C};
+\node [and gate,draw, allgate, logic gate inputs=nn] (a2)
+[below of=a1, yshift=-5mm] {};
+\node (B) [left of=a2,xshift=-10mm, yshift=-2mm] {B};
+\node (S) [below of=a2,xshift=-17.5mm] {S};
+
+\draw (A)  -- (a1.input 1);
+\draw (S.east) -- ++(right:3mm) |-  (a1.input 2);
+\draw (S.east) -- ++(right:3mm) |- (a2.input 1);
+\draw (B.east) --  (a2.input 2);
+\draw (a1.output) -- ++(right:3mm) |- (o.input 1);
+\draw (a2.output) -- ++(right:3mm) |- (o.input 2);
+\draw (o.output)  -- (C);
+
+\end{tikzpicture}
+\end{column}  
+\end{columns}
+
+\begin{equation}
+  \label{eq:mux}
+  C = (A\cdot\overline{S})+(B\cdot S)
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[fragile]{Decodificador}
+
+Para $n$ linhas de entrada o \alert{decodificador} gera $2^n$ saídas.\\
+
+Exemplo:
+
+  \begin{center}
+    \includegraphics[scale=0.4]{proc-decoder.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Multiplexador -- exemplo de uso}
+  \begin{center}
+    \includegraphics[scale=0.4]{proc-mux_example.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{\em Clock}
+
+  \begin{itemize}
+  \item<1> Elementos e operações em um ciclo de clock.
+  \item<2> Redução de um elemento de estado devido à escrita ser
+    realizado na borda ascendente do {\bf clock}.
+  \end{itemize}
+  
+  \begin{center}
+    \includegraphics<1>[scale=.5]{proc-clock_cycle1.png}
+    
+    \includegraphics<2>[scale=.5]{proc-clock_cycle2.png}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}{Outros componentes}
+
+  \begin{itemize}
+  \item {\em Flip-flop}: circuito com $2$ estados estáveis usado para
+    armazenar informações de estado;
+  \item {\em Latch}: célula de memória estática;
+  \item Temporizador: tipo especializado de {\em clock};
+  \item Deslocadores;
+  \item Registradores: memória do processador.
+  \end{itemize}
+  
+\end{frame}
+
+
+\def\thetitle{Projeto abstrato}
+\frame{\author{}\date{}\institute{}\title{\thetitle}\titlepage}
+
+\section{\thetitle}
+
+\begin{frame}
+\frametitle{Primeiro est\'agio da via de dados}
+\vspace{-0.5cm}
+{\scriptsize Via de dados de busca de instru\c{c}\~oes e incremento do
+  ``contador de programa''(PC)}
+
+\bigskip
+\begin{tikzpicture}
+  \draw (-1.5,1.5) rectangle ++(1,3) node[midway] {PC};
+  \draw[->] (-0.5,3) -- ++(2,0) node[right,text width=2cm]
+  {\scriptsize{Endere\c{c}o} lido};
+  \draw (1.5,0.2) node[above right] {\tiny \bf mem\'oria de instru\c{c}\~oes}rectangle ++(3,3);
+  \node[anchor=east] (instr) at (4.5,1.6) {\scriptsize{Instru\c{c}\~ao}};
+  \draw[->] (instr) -- +(2,0);
+  \node[draw,trapezium,rotate=-90,minimum height=1.2cm,minimum
+  width=1cm] (trap) at (6,4.5) {};
+  \draw (trap)+(-0.6cm,0.6cm) -- +(-0.275,0) node[right] {add} -- +(-0.6cm,-0.6cm);
+  \draw[draw=white] (trap)+(-0.6cm,0.6cm) -- +(-0.6cm,-0.6cm);
+  \draw[<-] (trap)+(-0.6cm,-0.8cm) -- ++(-2cm,-0.8cm) node[left] {4};
+
+  \draw[->] (0.5,3) -- +(0,2.5cm) -- +(4.9,2.5cm);
+  \draw[->] (trap.north) -- +(1,0) -- +(1,2) -- +(-9,2) -- +(-9,-1.5)
+  -- +(-8.1,-1.5);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{Visão abstrata de um processador MIPS}
+\begin{center}
+    \includegraphics[scale=.35]{proc-mips_subset.png}
+  \end{center}
+\end{frame}
+
+
+\def\thetitle{Arquiteturas: RISC x CISC}
+\section{\thetitle}
+\frame{\author{}\date{}\institute{}\title{\thetitle}\titlepage}
+
+\begin{frame}{RISC}{Reduced Instruction Set Computer}
+  Características
+  \begin{itemize}
+  \item Conjunto pequeno e simples de instruções;
+  \item Instruções executadas no hardware, não havendo microprogramação;
+  \item As instruções levam aproximadamente a mesma quantidade de
+    tempo para serem executadas;
+  \item Maior número de registradores para reduzir o número de acessos
+    à memória principal.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{CISC}{Complex Instruction Set Computer}
+  Características:
+
+  \begin{itemize}
+  \item Possui um conjunto grande e complexo de instruções, algumas
+    armazenadas como código de baixo nível no processador, que fornece
+    ao programador de linguagem de montagem uma camada adicional
+    chamada microprogramação.
+  \end{itemize}
+
+\pause
+
+Vantagens e desvantagens com relação à RISC:
+
+\begin{itemize}
+\item Uma vantagem seria fornecer ao programador um número maior de
+  operações que na arquitetura RISC deveriam ser codificadas;
+\item O outro lado da moeda é que algumas otimizações não podem ser
+  feitas na arquitetura CISC devido à impossibilidade de alterar a
+  instrução composta com o objetivo de melhorar o desempenho.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Referência}
+  
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      
+\includegraphics[scale=2]{\imgdir/patterson-book_cover.png}
+
+    \end{column}
+    \begin{column}{0.7\textwidth}
+\small
+      Computer Organization and Design, 4th Edition\\
+      The Hardware/Software Interface.\\
+      David A. Patterson  \&  John L. Hennessy \\
+      Morgan Kaufmann Publisher\\
+      ISBN: 978-0-12-374493-7\\
+      2008
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\end{document}
+
+\lecture{Portas Lógicas}{Unidades básicas}
+
+\subsection{\insertlecture}
+
+\begin{frame}[fragile]{Portas Lógicas}
+\def\shift{2cm}
+\tikzset{every node/.style={font=\scriptsize}}
+
+\begin{circuitikz}
+\draw (0,0) node[and port] (AND) {};
+\node [above of=AND,xshift=-.45*\shift] {\tt AND};
+\node [below of=AND,xshift=-.45*\shift] {\tt $S=A.B$};
+
+\draw (1.5*\shift,0) node[or port] (OR) {};
+\node [above of=OR,xshift=-.45*\shift] {\tt OR};
+\node [below of=OR,xshift=-.45*\shift] {\tt $S=A+B$};
+
+\draw (2.5*\shift,0) node[not port] (NOT) {};
+\node [above of=NOT,xshift=-.15*\shift] {\tt NOT};
+\node [below of=NOT,xshift=-.15*\shift] {\tt $S=\NOT{A}$};
+
+\draw (4*\shift,0) node[xor port] (XOR) {};
+\node [above of=XOR,xshift=-.45*\shift] {\tt XOR};
+\node [below of=XOR,xshift=-.45*\shift] {\tt $S=A\bigoplus B$};
+
+\foreach \G in {AND, OR, XOR} {
+  \node[above] at (\G.in 1) {A};
+  \node[below] at (\G.in 2) {B};
+  \node[above] at (\G.out) {\color{out}S};
+}
+  \node[above] at (NOT.in) {A};
+  \node[above] at (NOT.out) {\color{out}S};
+
+\matrix [below of=AND,yshift=-\shift,xshift=-.35*\shift] (and table){
+  \A & \B & \color{out} \S \\\hline
+  \O & \O & \color{out}\O\\
+  \O & \I & \color{out}\O\\
+  \I & \O & \color{out}\O\\
+  \I & \I & \color{out}\I\\
+};
+
+\matrix [below of=OR,yshift=-\shift,xshift=-.35*\shift] (and table){
+  \A & \B & \color{out}\S \\\hline
+  \O & \O & \color{out}\O\\
+  \O & \I & \color{out}\I\\
+  \I & \O & \color{out}\I\\
+  \I & \I & \color{out}\I\\
+};
+
+\matrix [below of=NOT,yshift=-.75*\shift,xshift=-.15*\shift] (and table){
+  \A & \color{out}\S \\\hline
+  \O & \color{out}\I\\
+  \I & \color{out}\O\\
+};
+
+\matrix [below of=XOR,yshift=-\shift,xshift=-.35*\shift] (and table){
+  \A & \B & \color{out}\S \\\hline
+  \O & \O & \color{out}\O\\
+  \O & \I & \color{out}\I\\
+  \I & \O & \color{out}\I\\
+  \I & \I & \color{out}\O\\
+};
+
+
+\end{circuitikz}
+
+\end{frame}
+
+\subsection{Controle}
+
+\frame{\centering{\bf\large Controle}}
+
+\begin{frame}{Decodificador}
+
+Para \alert{$k$} entradas, o \alert{decodificador} seleciona entre \alert{$2^k$} saídas.
+
+\begin{center}
+ \input{\imgdir/decoder}                    
+\end{center}
+
+\end{frame}
+    
+\input{\imgdir/mux.tex}
+
+\subsection{Lógica}
+\frame{\centering{\bf\large Lógica}}
+
+\begin{frame}
+\frametitle{Unidade Lógica de 1-bit}
+
+\begin{center}
+\input{\imgdir/logunit1}
+\end{center}
+
+\end{frame}
+
+\input{adder.tex}
+
+\frame{\centering{\bf\large Unidade Lógica e Aritmética (ULA)}}
+
+\begin{frame}{ULA de 1-bit}{Circuito}
+
+\begin{center}
+\input{\imgdir/alu1bit}
+\end{center}
+
+\end{frame}

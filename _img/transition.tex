@@ -1,0 +1,19 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../notes"
+%%% End: 
+
+
+\begin{tikzpicture}
+  \small
+  \tikzset{->,>=latex,
+    el/.style={above} % edge label
+  }
+
+  \node[state] (spec) {Especificado};
+  \node[state,draw=red] (nospec) [right of=spec,xshift=50mm] {\color{red} Não Especificado};
+  
+  \path[color=red] (spec) edge [bend left] node[el] {\color{red} Falha}  (nospec);
+  \path (nospec)  edge  node[el] {Recuperação} (spec);
+\end{tikzpicture}

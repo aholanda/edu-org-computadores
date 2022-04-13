@@ -1,0 +1,11 @@
+\begin{tikzpicture}
+  [every node/.style={font=\footnotesize},
+  ff/.style={minimum width=2cm,minimum height=2cm,draw}]
+  \def\d{8}
+  \node[ff] (DFF) {};
+  \node[right] at (DFF.north west)[yshift=-\d] {D};
+  \path[draw] (DFF.west)+(0,.35) node[below left] {CLK} -- +(.5,-.05) -- +(-.015,-.35);
+  
+  \node[left] at (DFF.north east)[yshift=-\d] {Q};
+  \node[above] at (DFF.south) {CLR};
+\end{tikzpicture}

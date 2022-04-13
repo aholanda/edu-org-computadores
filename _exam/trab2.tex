@@ -1,0 +1,173 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+\documentclass[12pt]{article}
+
+\usepackage[]{fontspec}
+\usepackage{a4wide}
+
+\begin{document}
+
+\title{Introdução à Organização de Computadores}
+\author{}
+\date{\today}
+\maketitle
+
+{\begin{center}\Large \bf Trabalho 2\end{center}}
+
+Fazer uma apresentação ({\it slides}) e um trabalho escrito de forma sucinta para
+os seguintes tópicos:
+
+\begin{itemize}
+\item \{{\bf Diego, Sena}\} {\bf Detecção e correção de erros em memória (técnica de Hamming):}
+  \begin{itemize}
+  \item Função do código de correção de erro;
+  \item Layout de dado e de verificação;
+  \item Cálculo do bit de verificação;
+  \item Código SEC-DEC de Hamming.
+  \end{itemize}
+
+\item \{{\bf Henrique, Vinicius, Yasmin}\} {\bf Barramento PCI-Express:}
+  \begin{itemize}
+  \item Estrutura do barramento;
+  \item Comandos;
+  \item Transferência de dados;
+  \item Arbitração.
+  \end{itemize}
+\end{itemize}
+
+\end{document}
+
+\section{Cache}
+
+Caches são importantes para fornecer alta performance na hierarquia de
+memória para os processadores. A Tabela~\ref{tab:refs} contém uma lista de
+ endereços de memória de 6 bits (Faixa: $0$ $\ldots$  $2^6-1$).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|}\hline
+   0, 34, 12, 0, 35, 13, 62, 61, 2, 44, 0, 21 \\\hline
+   6, 14, 5, 14, 6, 4, 5, 4, 4, 5, 5, 0, 14, 16 \\\hline
+\end{tabular}
+\caption{Tabela de referências das requisições de endereços para
+  a memória cache.}
+\label{tab:refs}
+\end{table}
+
+Para cada um dos endereços da Tabela~\ref{tab:refs}, identificar o
+endereço binário, o rótulo/etiqueta ({\em tag}) e o índice  de uma
+cache com {\bf 8} blocos, utilizando as seguintes estratégias de
+mapeamento:
+
+\begin{enumerate}
+\item {\bf Mapeamento direto}; {\scriptsize [2 pontos]}
+\item {\bf Mapeamento associativo em 2 vias}; {\scriptsize [2 pontos]}
+\item {\bf Sem mapeamento}.{\scriptsize [2 pontos]}
+
+\end{enumerate}
+
+
+Também listar se cada referência requisitada apresenta {\em cache
+  hit/miss} calculando a taxa de ausência de endereços. Assumir que
+inicialmente a cache está vazia.
+
+\section{Entrada/Saída}
+
+\subsection{Disco rígido}
+{\scriptsize [2 pontos]}
+
+Os tempos médio e mínimo de leitura e escrita para os dispositivos de
+armazenamento são medidas usuais utilizadas para comparar dispositivos
+de entrada/saída. Calcular o tempo de escrita e leitura para discos
+rígidos com as seguintes características:
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|p{2.2cm}|c|p{2.2cm}|p{2.2cm}|}\hline
+  & \footnotesize Tempo médio de busca (s) &  RPM &  \footnotesize
+  Taxa de transferência do disco (MBytes/s) & \footnotesize Taxa de
+  transferência do controlador (Mbits/s) \\\hline
+  \bf a. & 11 & 7200 & 34 & 480 \\
+  \bf b. & 9 & 7200 & 30 & 500 \\\hline
+\end{tabular}
+\caption{Características de 2 sistemas com disco rígido.}
+\label{tab:disk}
+\end{center}
+\end{table}
+
+{\bf 1.} Calcular o tempo médio para ler ou escrever um setor de 1024
+bytes em cada disco listado na Tabela~\ref{tab:disk}.
+
+
+{\bf 2.} Calcular o tempo mínimo para ler ou escrever um setor de 2048
+bytes em cada disco listado na Tabela~\ref{tab:disk}.
+
+{\bf 3.} Para cada disco na Tabela~\ref{tab:disk}, determinar o fator
+dominante para performance. Especificamente, se você pudesse realizar
+uma melhoria em qualquer aspecto, qual seria? Se não há nenhum fator
+dominante, explique o motivo.
+
+\subsection{Memória flash}
+{\scriptsize [2 pontos]}
+
+Explore a natureza da memória flash respondendo as questões
+relacionadas às memórias com as seguintes características:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}[h]{|c|c|c|}\hline
+    & \footnotesize Taxa de transferência de dados&
+    \footnotesize Taxa de transferência do controlador\\\hline
+    \bf a. & 34 MB/s & 480 MB/s\\
+    \bf b. & 30 MB/s & 500 MB/s\\\hline
+  \end{tabular}
+  \caption{Características de duas memórias flash.}
+  \label{tab:flash}
+\end{table}
+
+
+{\bf 1.} Calcular o tempo médio para ler ou escrever um setor de 1024
+bytes em cada memória listada na Tabela~\ref{tab:flash}.
+
+\footnotesize
+\section*{Observações}
+
+\begin{enumerate}
+\item O trabalho deverá ser entregue até pouco antes do início da
+  prova do 2$^o$ bimestre.
+\item O trabalho deverá ser escrito manualmente.
+\item O resto da divisão quando o dividendo é menor que o divisor é
+  igual ao dividendo. Exemplo: 1 {\tt módulo} 16 = 1, 0 {\tt módulo}
+  16 = 0, 15 {\tt módulo} 16 = 15.
+\item Todos os exercícios foram extraídos ou inspirados pelo livro ``Computer
+  Organization and Design'' por David Patterson e John Hennessy.
+\end{enumerate}
+
+\end{document}
+
+
+\section{Memória virtual}
+
+\subsection{Paginação}
+\scriptsize{[1 ponto]}
+
+Descrever detalhadamente todas as etapas a partir do momento em que o
+sistema operacional requisita à MMU\footnote{{\em Memory Management
+    Unit} - Unidade de Gerenciamento de Memória} uma página que não se
+encontra na memória principal e sim no disco rígido. Presumir que não
+há espaço para adicionar a página a ser trazida para a memória principal.
+
+
+\section*{Principais tópicos a serem estudados}
+
+\begin{enumerate}
+\item Diferença entre RAM ({\em Random Access Memory}) estática e dinâmica.
+\item Papel do TLB ({\em Translation Look-aside Buffer}).
+\item Tabela de páginas: o que é, localização.
+\item Papel do bit de validade na memória virtual.
+\end{enumerate}
+

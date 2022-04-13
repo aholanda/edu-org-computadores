@@ -1,0 +1,21 @@
+\begin{circuitikz}
+
+\colorlet{set}{green!40!black}
+\colorlet{reset}{red}
+
+\tikzset{every node/.style={font=\footnotesize},
+every path/.style={draw}}
+        % GATES
+        \node[nor port, color=set] at (0,1.25)  (RNOR) {};
+        \node[nor port,color=reset] at  (0,-1.25)  (SNOR) {};
+                
+        % LABELS
+        \node[color=set,above] at (RNOR.in 1) {$R$};
+        \node[color=set,above] at (RNOR.out) {$Q$};
+        \node[color=reset,below] at (SNOR.in 2) {$S$};
+        \node[color=reset,below] at (SNOR.out) {$\overline{Q}$};
+        
+        % PATHS
+        \path[color=reset] (RNOR.in 2) -- (SNOR.out);
+        \path[color=set] (SNOR.in 1) -- (RNOR.out);
+\end{circuitikz}

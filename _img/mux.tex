@@ -1,0 +1,71 @@
+\begin{tikzpicture}
+  
+\def\shift{1cm}
+\begin{scope}
+  \tikzset{every node/.style={font=\scriptsize},
+   every path/.style={->,>=latex, draw},
+    mux/.style={rotate=90, minimum height=.5*\shift,minimum width=2*\shift, rounded
+      corners=2mm, draw},
+    l/.style={gray}
+}
+
+    \node[mux] (MUX) at (0,0) {};
+    \node[l] (M) at ([yshift=.25*\shift]MUX) {m};
+    \node[l] (u) [below of=M,yshift=.75\shift] {u};
+    \node[l] (x) [below of=u,yshift=.75\shift] {x};
+
+    \node at ([xshift=-1.5*\shift]MUX.20) (A) {x};
+  
+    \path  (A) -- (MUX.20) node[right,xshift=1] {$0$};
+
+    \node (B) at ([xshift=-1.5*\shift]MUX.160) {y};
+  
+    \path (B) -- (MUX.160) node[right,xshift=1] {$1$};
+
+    \node (C) at ([xshift=1.5*\shift]MUX.south) {f};
+  
+    \path  (MUX.south) -> (C);
+  
+    \node (S) at ([yshift=-1.5*\shift]MUX.west) {seleção $s$};
+  
+    \path[->,>=latex]  (S) -> (MUX.west);
+
+    
+
+   \matrix (select table) [matrix of nodes, above of=MUX,xshift=-.5\shift,yshift=\shift]
+   {
+     \bf s & \bf f \\
+     0 & =x \\
+     1 & =y \\
+   };
+
+\end{scope}
+
+\begin{scope}
+
+  %GATES
+  \draw
+  (5,1) node[and gate US,draw] (andA){}
+  (5,-1) node[and gate US,draw] (andB){}
+  (7,0) node[or gate US,draw] (orC){}
+  (andA.output) -| (orC.input 1)
+  (andB.output) -| (orC.input 2);
+  \node[above] (LC) at (orC.output) {$f$};
+
+  %+WIRE
+  \path[draw] (andA.input 1) node[] (anchor A) {} -- +(-.5,0) node[above] {x};
+  \path[draw] (andB.input 2) node[] (anchor B) {} -- +(-.5,0) node[above] {y};
+
+  \node[] at (andA.input 2) (wire inAtwo)  {};
+  \node[ocirc] [right of=wire inAtwo,xshift=-.8*\shift] {};
+
+  % SIGNAL
+  \node[right] (S) [below of=anchor B] {seleção $s$};
+  \path[draw] (S) -- (andB.input 1) node[circ] {} -- (andA.input 2);
+
+   \node[green!30!black] (EXP) [below of=orC,xshift=.125*\shift,yshift=-\shift] {$f~(s,x,y) = x\overline{s} + ys$};
+   
+
+  \end{scope}
+  
+\end{tikzpicture}

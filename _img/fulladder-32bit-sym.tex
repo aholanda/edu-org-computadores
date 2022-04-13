@@ -1,0 +1,47 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+\begin{circuitikz}
+\def\shift{1.5cm}
+
+\colorlet{aincolor}{green!75!black}
+\colorlet{bincolor}{green!35!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={->, >=latex, draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    adder/.style={minimum width=1cm, minimum height=1cm,draw},
+}
+
+\foreach \i/\prev/\idx/\cur in {0/0/0/31,1/0/31/3,2/1/2/2,3/2/1/1} {
+  \node[adder] at (0,\i*\shift) (adder\i) {\LARGE $+$};
+  \node[anchor=west] at (adder\i.150) (a\i) {};
+  \node[anchor=west] at (adder\i.210) (b\i) {};
+  \node[anchor=east] at (adder\i.east) (s\i) {};
+  \path[wire] (a\i)+(-.5*\shift,0) -- (a\i) node[midway,above] {A$_{\cur}$};
+  \path[wire] (b\i)+(-.5*\shift,0) -- (b\i) node[midway,above] {B$_{\cur}$};
+  \path[wire] (s\i) -- +(.5*\shift,0) node[midway,above] {S$_{\cur}$};
+  
+  \ifnum\i=0
+  {}
+  \else\ifnum\idx=31
+    \path[wire,dotted,red] (adder\i.south) -- (adder\prev.north) node[midway,right] {C$_{out\idx}$};
+  \else
+  \path[wire] (adder\i.south) -- (adder\prev.north) node[midway,right] {C$_{out}\idx$};
+  \fi\fi
+}
+
+\node[adder] at (0,4*\shift) (adder4) {\LARGE $+$};
+  \node[anchor=west] at (adder4.150) (a4) {};
+  \node[anchor=west] at (adder4.210) (b4) {};
+  \node[anchor=east] at (adder4.east) (s4) {};
+  \path[wire] (adder4.south) -- (adder3.north) node[midway,right] {C$_{out}0$};
+  \path[wire] (a4)+(-.5*\shift,0) -- (a4) node[midway,above] {A$_0$};
+  \path[wire] (b4)+(-.5*\shift,0) -- (b4) node[midway,above] {B$_0$};
+  \path[wire] (s4) -- +(.5*\shift,0) node[midway,above] {S$_0$};
+\end{circuitikz}

@@ -1,0 +1,23 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+
+\begin{tikzpicture}
+\def\XOR{{\tt XOR}}
+
+\node[xor gate US, minimum height=2cm, draw] at (-6,0) (G) {};
+\draw (G.input 1 -| -8,0) node[anchor=east] {$i$} -- (G.input 1); 
+\draw (G.input 2 -| -8,0) node[anchor=east] {$c$} -- (G.input 2); 
+\draw (G.output) -- ([xshift=0.5cm]G.output) node[anchor=west] {$o$};
+
+\matrix (xor truth) [matrix of nodes]
+{\hline
+  $i$ & $c$ & $o$\\\hline
+  0 & 0 & 0 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 0 \\
+};
+
+\end{tikzpicture}

@@ -1,0 +1,174 @@
+\question{1,5} Converta os números a seguir para base binária:
+
+\begin{enumerate}[a)]
+\item $43_8$
+\item $436_8$
+\item $33_{10}$
+\item $44_{10}$
+\item $A48_{16}$
+\item $5BCD3_{16}$
+\end{enumerate}
+
+\question{1} Converta os números a seguir de decimal para
+binário com sinal (complemento de 2). O número de bits é
+indicado entre parênteses.
+
+\begin{enumerate}[a)]
+\item 26 (6 bits)
+\item -21 (6 bits)
+\item -31 (6 bits)
+\item -33 (7 bits)
+\end{enumerate}
+
+\question{1,5}~Realize as seguintes operações aritméticas (não é
+necessário realizar a conversão de bases, porém, mostre as operações
+intermediárias):\bigskip
+
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+     & $0\ 1\ 0\ 1\ 1$ \\
+    $+$& $0\ 1\ 0\ 0\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+     & $1\ 0\ 0\ 1\ 0\ 1\ 0$ \\
+    $+$& $0\ 1\ 0\ 1\ 1\ 0\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}\vspace{1.5cm}
+
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+        &$1\ 0\ 0\ 1\ 0$ \\
+    $-$ &$0\ 0\ 1\ 0\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+        &$1\ 0\ 0\ 0\ 0\ 0\ 1$ \\
+    $-$ &$0\ 0\ 0\ 0\ 1\ 1\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}\vspace{1.5cm}
+
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+            & $1\ 0\ 1\ 1$ \\
+    $\times$& $0\ 0\ 1\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+  \begin{tabular}[h]{rc}
+     & $0\ 1\ 1\ 0\ 1\ 0$ \\
+    $\times$& $0\ 0\ 0\ 1\ 0\ 1$ \\\hline
+  \end{tabular}
+\end{center}
+\end{minipage}\vspace{3.5cm}
+
+\question{2} Faça a tabela-verdade para as espressões booleanas a
+seguir, e indique para quais entradas a saída será $1$:
+
+\begin{enumerate}[a)]
+\item $\~AB+\~{B}$
+\item $\~{A}\ + A\~{B}$
+\end{enumerate}
+
+\question{3} Para cada uma das expressões a seguir, desenhe o circuito
+lógico correspondente usando portas AND, OR e NOT.
+
+\begin{enumerate}[(a)]
+\item $f = \~{\~{A}.B(C+D)}$
+\item $f=(\~{A+B})(\~{A}+\~{B})$
+\item $f=({A.B})({A}.\~{B})$
+\end{enumerate}
+
+\question{1} Ache a expressão Booleana do circuito lógico combinacional 
+da Figura~\ref{fig:circ}.
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}
+  \node[name=a,draw, or gate US]  at (0,3.25) {};
+  \node[name=A] at (-2,3.35) {\tiny A};
+  \draw[] (A) -- (a.input 1);
+
+  \node[name=b,draw, and gate US]  at (0,2.25) {};
+  \node[name=B] at (-2,3.175) {\tiny B};
+  \draw[] (B) -- (a.input 2);
+  \node[name=C] at (-2,2.175) {\tiny C};
+  \node[name=n,draw, not gate US]  at (-1.3,2.175) {};
+  \draw (C) -- (n.input);
+  \draw (n.output) -- (b.input 2);
+  \draw (b.input 1) -| (-1,3.175) node[circle] {};
+
+
+  \node[name=c,draw, or gate US] at (3,3.15) {};
+  \node[name=X] at (4.5,3.15) {\scriptsize X};
+  \draw (a.output) -- (c.input 1);
+  \draw (c.output) -- (X);
+  \draw (b.output) -| (1,2.75) |- (c.input 2) {};
+
+  \end{tikzpicture}
+\end{center}
+\caption{Circuito lógico combinacional 1.}
+\label{fig:circ}
+\end{figure}
+
+\end{document}
+
+
+\question{2} Prove que: (fazendo a tabela-verdade)
+
+ $$x+(x.y) \equiv x$$
+
+
+\question{5}~A tabela de cores da linguagem HTML ({\em HyperText
+  Markup Language}) utiliza um hexadecimal de 6 dígitos, mapeando cada
+2 dígitos para cada intensidade de vermelho, verde e azul (RGB, {\em red,
+  green, blue}). Por exemplo, o valor hexadecimal \#DA70D6 representa
+a cor orquídea, e seu mapeamento RGB em decimal é (218,112,214), onde
+218~(\#DA) é a intensidade de vermelho, 112~(\#70) de verde e
+214~(\#D6) de azul. A cerquilha \# indica que o valor é
+hexadecimal. Converta os valores de cor a seguir para hexadecimal ou
+decimal, conforme o caso:
+
+\begin{enumerate}[a)]
+\item Púrpura, \#800080  % (128,0,128)
+\item Pink, \#FFC0CB % (255,192,203)
+\item Laranja, \#FFA500	% (255,165,0)
+%\item Azul, \#0000FF %	(0,0,255)
+%\item Sienna, \#A0522D % (160,82,45)
+\item Peru, (205,133,63) % \#CD853F
+\item Marrom, (165,42,42) % \#A52A2A	
+\end{enumerate}
+
+
+\question{2}~Os valores hexadecimais da questão~1 são convertidos para
+a representação binária ao serem armazenados no computador. Converta
+as cores Pink e Laranja para a representação binária.
+
+% \begin{minipage}{.5\textwidth}
+% \begin{center}
+%   \begin{tabular}[h]{rc}
+%     $\neg$ & $1\ 0\ 1\ 1\ 0\ 1\ 1$ \\\hline
+%   \end{tabular}
+% \end{center}
+% \end{minipage}
+% \begin{minipage}{.5\textwidth}
+% \begin{center}
+%   \begin{tabular}[h]{rc}
+%     $\neg$ & $1\ 0\ 1\ 0\ 1\ 1\ 1\ 1\ 1\ 0\ 0\ 1$ \\\hline
+%   \end{tabular}
+% \end{center}
+% \end{minipage}
+

@@ -1,0 +1,51 @@
+\def\side{3cm}
+\def\flabel#1{\scriptsize{#1}}
+   \begin{tikzpicture}
+
+   \tikzset{scale=0.8,
+     boxtext/.style={text width=2cm,text centered, midway}}
+
+     %CPU
+     \draw (0,0) rectangle +(\side,\side);
+     \foreach \x / \y in {1/1,2.25/1,1/2,2.25/2} {
+       \def\factor{0.25*\side}
+       \draw (\factor*\x,\factor*\y) rectangle +(0.2*\side,0.1*\side);
+       % draw vertical dots
+       \ifnum\y=1%
+       \node at (\factor*\x+0.1*\side,\factor*\y+0.22*\side) {$\vdots$};
+       \fi
+     }
+     \node at (0.5*\side,0.75*\side) {\flabel{Registradores}};
+     \draw (0,1.1*\side) rectangle +(\side,0.6*\side) 
+     node[boxtext] {\flabel{Unidade l\'ogica e aritm\'etica (ALU)}};
+     \draw (0,1.8*\side) rectangle +(\side,0.5*\side) 
+     node[boxtext] {\flabel{Unidade de controle}};
+     % cpu
+     \draw (-0.25cm,-0.5cm) rectangle +(0.475cm+\side,2.6*\side)
+     node[above] {\flabel{Unidade central de processamento (CPU)}};
+
+     % dev
+     \draw (1.2*\side,0) rectangle +(0.75*\side,0.5*\side) 
+     node[boxtext] {\flabel{Mem\'oria principal}};
+
+     % I/O
+     \draw (0.25cm+2*\side,0) rectangle +(0.75*\side,0.5*\side) 
+     node[boxtext] {\flabel{Disco}};
+     \draw (3*\side,0) rectangle +(0.75*\side,0.5*\side) 
+     node[boxtext] {\flabel{Impressora}};
+     % I/O label
+     \draw[|-|] (0.2cm+2*\side,0.55*\side) -- +(1.7*\side,0) 
+     node[midway,above] {{\tiny Dispositivos de E/S}};
+
+
+     % bus startx at cpu box
+     \draw[draw=red,very thick] (0.5*\side,-0.5cm) to (0.5*\side,-1cm)
+     to (1.55*\side,-1cm) to (1.55*\side,0)
+     to (1.55*\side,-1cm) to (0.25cm+2.35*\side,-1cm)
+     to (0.25cm+2.35*\side,0) to (0.25cm+2.35*\side,-1cm)
+     to (3.35*\side,-1cm) to (3.35*\side,0)
+     to (3.35*\side,-1cm) to (4.35*\side,-1cm) node[above] {\flabel{Barramento}};
+
+     %% becomes noise
+     %%\node[text width=3cm] at (4*\side,1.75*\side) {\flabel{1 CPU + 2 dispositivos de entrada e saída}};
+\end{tikzpicture}

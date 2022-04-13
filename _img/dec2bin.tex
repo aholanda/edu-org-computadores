@@ -1,0 +1,16 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+
+\begin{tikzpicture}
+
+  \tikzset{res/.style={fill=gray!40}}
+  \foreach \i/\num/\res/\rest in {0/25/12/1,1/12/6/1,2/6/3/0,3/3/1/0,4/1/0/1} {
+    \node at (1.2*\i,-\i) {${\num\over 2}$};
+    \node at (1+1.2*\i,-\i) {${=\res}$};
+    \node[fill=gray!40] at (1.2*\i,-6) {${\rest}$};
+    \path[->,draw,>=latex] (1.2*\i,-\i-0.35) -- node[rotate=90,above]{resto}  (1.2*\i,-5.65);
+}
+\node at (7,-6) {$=\ 25_{10}$};
+\end{tikzpicture}

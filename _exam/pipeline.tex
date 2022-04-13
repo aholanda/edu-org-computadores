@@ -1,0 +1,129 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: main
+%%% End:
+\noindent{\Large\bf Pipeline}\\
+
+\begin{table}[h]
+  \begin{tabular}{|c|c|c|c|c|c|c|}\hline
+    \bf Classe da instrução & \bf IF & \bf REGr & \bf ULA & \bf MEM &
+    \bf REGw & \bf Total
+    \\\hline\hline
+    Load word ({\tt lw}) & 200 ps & 100 ps & 200 ps & 200 ps & 100 ps
+    & 800 ps \\\hline
+    Store word ({\tt sw}) & 200 ps & 100 ps & 200 ps & 200 ps & 
+    & 700 ps \\\hline
+    Formato-R ({\tt add},{\tt sub}) & 200 ps & 100 ps & 200 ps &  & 100 ps
+    & 600 ps \\\hline
+    Desvio ({\tt beq}) & 200 ps & 100 ps & 200 ps &  & 
+    & 500 ps \\\hline
+  \end{tabular}
+
+  \caption{Tempo de execução de cada estágio do processador de acordo
+  com as classes de instruções.}
+ \label{tab:texec}
+\end{table}
+
+\exercise A Tabela~\ref{tab:texec} apresenta os valores de tempo para
+a execução de cada estágio das instruções. Tomando estes valores como
+base, calcule os tempos de execução dos conjuntos de instrução a
+seguir {\bf sem} e {\bf com} pipeline.
+
+\begin{enumerate}[a)]
+
+\item 
+\begin{lstlisting}
+lw $s0, 0($t0)
+lw $s1, 4($t0)
+lw $s2, 8($t0)
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+sw $s0, 0($t0)
+sw $s1, 4($t0)
+sw $s2, 8($t0)
+\end{lstlisting}
+
+\item
+\begin{lstlisting}
+add $t0,$s0,$s1
+sub $t1,$s0,$s1
+add $t0,$t0,$t1
+\end{lstlisting}
+
+
+\item 
+\begin{lstlisting}
+lw $s0,0($t0)
+addi $s0,$s0,20
+sub  $s0, $s0,8
+sw $s0,12($t0)
+\end{lstlisting}
+
+\item
+\begin{lstlisting}
+lw $s0,0($t0)
+lw $s1,4($t0)
+add $t1,$s0,$s1
+sw $t1, 8($t0)
+\end{lstlisting}
+
+\end{enumerate}
+
+\def\map#1#2{{\tt #1} $\Leftarrow$\ {\tt\$#2}}
+\def\M{com acesso à memória}
+
+\section*{{\em Pipeline} de instruções}
+
+\paragraph{Questão 0.} Calcule o tempo total de execução sem e com {\em
+  pipeline} das instruções dos itens {\bf a}, {\bf b} e {\bf c}:
+
+\begin{center}
+\begin{tt}
+\begin{tabular}{|ll|ll|ll|}\hline
+&{\bf a)} & &{\bf b)} & &{\bf c)}\\\hline
+  add    &\$s1,\$s2,\$t1 & lw  & \$s1, 0(\$t0)  & lw  & \$s1, 0(\$t0)\\
+  add    &\$s2,\$s3,\$t2 & add &\$s1,\$s2,\$t1  & add &\$s2,\$s2,\$s3\\
+         &               & add &\$s1,\$s3,\$s1  & add &\$s1,\$s4,\$s2\\
+         &               & sw  &\$s1, 0(\$t0)    & sw  &\$s1, 0(\$t0)\\
+         &               &     &                & sw  &\$s2, 0(\$t1)\\\hline
+       \end{tabular}
+     \end{tt}         
+   \end{center}                  
+                 
+\bigskip
+\noindent tendo os seguintes tempos de execução dos passos intermediários
+como referência:\\
+
+Estágios de tarefas do processador MIPS:
+\begin{enumerate}
+\item {\bf IF} -- ``pegar'' ({\em fetch}) a instrução;
+\item {\bf REGr} -- ler o registrador;
+\item {\bf ULA} -- realizar a operação;
+\item {\bf MEM} -- acessar os dados na memória;
+\item {\bf REGw} -- gravar no registrador.
+\end{enumerate}
+\bigskip
+
+  \begin{tabular}{|c|c|c|c|c|c|c|}\hline
+    \bf Classe da instrução & \bf IF & \bf REGr & \bf ULA & \bf MEM &
+    \bf REGw & \bf Total
+    \\\hline\hline
+    Load word ({\tt lw}) & 200 ps & 100 ps & 200 ps & 200 ps & 100 ps
+    & 800 ps \\\hline
+    Store word ({\tt lw}) & 200 ps & 100 ps & 200 ps & 200 ps & 
+    & 700 ps \\\hline
+    Formato-R ({\tt add},{\tt sub}) & 200 ps & 100 ps & 200 ps &  & 100 ps
+    & 600 ps \\\hline
+    Desvio ({\tt beq}) & 200 ps & 100 ps & 200 ps &  & 
+    & 500 ps \\\hline
+  \end{tabular}
+
+\bigskip
+\noindent Faça um diagrama de blocos (Gantt) descrevendo os passos intermediários das
+instruções.
+
+\vfill 
+

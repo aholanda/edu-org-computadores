@@ -1,0 +1,137 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[left=2.5cm,top=2cm,bottom=2cm,right=2.25cm]{geometry}
+\usepackage{hyperref}
+\usepackage[brazilian]{babel}
+
+\newcounter{serieno}\setcounter{serieno}{0}
+\def\sno{\addtocounter{serieno}{1}\arabic{serieno}}
+
+\begin{document}\small
+
+\title{Introdução à Organização de Computadores}
+\author{}
+\maketitle
+
+\section*{Trabalho 1}
+
+Implemente um código na linguagem MIPS usando as séries listadas
+abaixo. Cada número ao lado da série corresponde ao número do
+grupo. Para todas as séries o valor de $x$ deve ser maior do que $0$
+($x>0$).  O elementos da série deverão ser armazenados em um vetor.
+
+\begin{table}[ht]
+  \centering
+  \large
+  \begin{tabular}[ht]{|l|l|l|}\hline
+    \bf Grupo & Integrantes & Série \\\hline\hline
+    \sno & & $\sum_{n=1}^{7}x+2n-1$\\\hline
+    \sno &  &$\sum_{n=0}^{8}2x+n-2$\\\hline
+    %\sno & \{Jean e Andes\} &$\sum_{n=0}^{8}x-n,\ x>7$\\\hline
+    %\sno & \{Cleverson, Carlos e Mickael\} &$\sum_{n=0}^{8}x+1$\\\hline
+    %\sno & \{Vinicius Ricci, Marlon, Douglas\} & $\sum_{n=0}^{4}x-n-2,\ x>6$\\\hline
+    %\sno & \{Vinicius Frata, Bruno\}&$\sum_{n=0}^{6}x-n+10$\\\hline
+    %\sno & \{Alex, Cynthia, Arthur\} &$\sum_{n=0}^{7}x+n+1$\\\hline
+    %\sno & \{Maísa e Rafael\} &$\sum_{n=0}^{8}x+n-1$\\\hline
+    %\sno & \{Alison, Victor\} & $\sum_{n=0}^{8}x+2*n$\\\hline
+    %\sno & \{Takahashi\} & $\sum_{n=0}^{8}2*x+n$\\\hline
+  \end{tabular}
+\label{tab:series}%
+\caption{Séries a serem implementadas em MIPS com o correspondente número do grupo.}
+\end{table}
+
+Se houver alterações nos grupos, estas deverão estar descritas no
+email a ser enviado com o programa, cujas as regras são descritas a
+seguir.
+
+\subsection*{Regras}
+
+O arquivo contendo o programa, deverá conter nos comentários, os nomes
+dos integrantes do grupo e email, além de indicar em cada linha de
+instrução o que ela executa de acordo com:
+
+\begin{enumerate}
+\item Estrutura do programa: região dos dados, região das instruções e
+  endereços das regiões;
+\item Operações aritméticas: todas as operações aritméticas
+  necessárias para a execução correta do programa;
+\item Instruções de decisão: instruções utilizadas para controlar o
+  fluxo do programa;
+\item Acesso à memória: como e em quais partes do programa a memória é acessada.
+\end{enumerate}
+
+Ao término do programa, este deverá ser enviado para
+\href{mailto:ajholanda@gmail.com}{ajholanda@gmail.com} contendo no
+``Assunto:'' a frase ``[IOC] Trabalho de IOC - Grupo $x$'', onde $x$ é o
+número do grupo, com pedido de confirmação de recebimento, com cópia
+para todos os integrantes do grupos. Após o recebimento da confirmação
+de pelo menos um dos membros do grupo, encerra-se o trabalho.
+
+Se a rede de computadores estiver inoperante o programa poderá ser
+gravado em um pendrive, de preferência sem vírus, e entregue
+diretamento ao professor.
+
+\paragraph{Nota.} A nota do primeiro bimestre será calculada da
+seguinte forma:
+
+\begin{equation}
+  \label{eq:nota1bim}
+  S1 = {0,4 \times T1 + 0,6 \times P1};
+\end{equation}
+
+\noindent sendo,\\
+$S1$ -- nota do $1^o$ semestre;\\
+$T1$ -- nota do trabalho 1;\\
+$P1$ -- nota da prova 1.
+
+\hfill {\large Bom trabalho a todos}\\
+\end{document}
+
+
+O trabalho será apresentado por todos os integrantes do grupo, sendo
+cada um, responsável por determinado item descrito a seguir e já
+apresentado em aula:
+
+\begin{enumerate}
+\item Estrutura do programa: região dos dados, região das instruções e
+  endereços das regiões;
+\item Operações aritméticas: todas as operações aritméticas
+  necessárias para a execução correta do programa;
+\item Instruções de decisão: instruções utilizadas para controlar o
+  fluxo do programa;
+\item Acesso à memória: como e em quais partes do programa a memória é acessada.
+\end{enumerate}
+
+O programa deverá ser executado passo a passo durante a apresentação
+de cada item. Ao final da apresentação do programa, este deverá
+ser executado sem interrupções com a apresentação da saída correta
+esperada.
+
+Cada grupo terá no máximo {\bf 20 minutos} para apresentação, e 
+será composto por no máximo {\bf 4 integrantes}. Os grupos com número de
+integrantes inferior a 4, farão a escolha de um integrante para
+apresentar o item sem atribuição.
+
+A atribuição dos programas ao grupos será feita da seguinte forma:
+
+\begin{itemize}
+\item Os grupos deverão enviar uma listagem dos integrantes para o email
+  \href{mailto:ajholanda@gmail.com}{ajholanda@gmail.com} contendo no
+  ``Assunto:'' a frase ``[IOC] Trabalho de IOC'', com pedido de
+  confirmação de recebimento. Após o recebimento, o número da série a
+  ser implementada será atribuído ao grupo e uma resposta será
+  enviada, com pedido de aviso de recebimento.
+  As respostas serão enviadas rapidamente, não causando transtornos
+  para o início da realização do trabalho.
+\end{itemize}
+
+A listagem do programa, contendo o comentário em cada linha e o nome
+dos integrantes no cabeçalho, deverá ser impressa e entregue antes
+da apresentação.
+

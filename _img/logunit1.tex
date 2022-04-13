@@ -1,0 +1,45 @@
+\def\NOT#1{\overline{#1}}
+
+\begin{circuitikz}
+\def\shift{2cm}
+
+\colorlet{aincolor}{green!45!black}
+\colorlet{bincolor}{blue!45!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    header/.style={minimum width=1.*\shift,white},
+    a header/.style={header, fill=aincolor},
+    b header/.style={header, fill=bincolor},
+    out header/.style={header, fill=outcolor},
+    mux/.style={ minimum height=.2*\shift,minimum width=2.5*\shift, rotate=90,
+      rounded corners=2mm, draw}
+}
+
+%GATES
+\draw (0,1.475) node[or port] (OR) {};
+\draw (0,-1.475) node[and port] (AND) {};
+
+%WIRES
+\path[aincolor]  (OR.in 1) -- +(-1,0) node[above] (A) {$A$};
+\path[bincolor]   (AND.in 2) -- +(-1,0) node[above] (B) {$B$};
+\path[aincolor]  (A.south east) node[circ] {} -- +(0,-2.95) |- (AND.in 1);
+\path[bincolor]  (B.south east)+(.78,0) node[circ] {} -- +(.75,2) |- (OR.in 2);
+
+\node[mux] (MUX) at (1,0) {\color{gray}mux};
+\node (zero) at ([yshift=.75*\shift]MUX) {$0$};
+\node (one) [below of=zero,yshift=-.95*\shift] {$1$};
+
+
+\path[wire] (OR.out) -- (MUX.8);
+\path[wire] (AND.out) -- (MUX.172);
+\path[wire] (MUX.south) -- +(\shift,0) node (C) [above] {$C$};
+\path[<-,>=latex,red] (MUX.west) node[below right] {$S$} -- +(0,-.5*\shift);
+
+
+\node [below of=C,xshift=.75*\shift] {$C=(A+B){\color{red}\NOT{S}} + (A.B).{\color{red}S}$};
+
+\end{circuitikz}

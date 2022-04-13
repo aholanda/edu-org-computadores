@@ -1,0 +1,68 @@
+\section{E/S e Armazenamento}
+
+\paragraph{Exercício 1.} A empresa $\kappa$apa forneceu a especificação para dois modelos
+de discos rígidos que fabricam mostrada na Tabela~\ref{tab:hd}.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}[ht]{c|c|c}\hline
+    &\bf modelo XX1000 &\bf modelo XX2000 \\\hline
+    taxa de transferência SATA (Gb/s) & 6 &  6\\
+    média de busca, leitura (ms) & 8,5 & 8,5 \\
+    média de busca, escrita (ms) & 9,5 & 9,5  \\
+    média de transferência dos dados, leitura/escrita (MB/s)& 146 & 156  \\
+    rotação (RPM) & 7.200 & 7.200 \\
+    bytes por setor & 4.096 & 4.096 \\
+    cabeçotes/bandejas & 8/4 & 6/3 \\\hline
+  \end{tabular}
+  \caption{Especificações de modelos de disco rígido.}
+  \label{tab:hd}
+\end{table}
+
+\noindent Baseando-se na Tabela~\ref{tab:hd}, calcule o tempo médio
+que cada modelo de disco leva para transferir dados durante a leitura
+e escrita de um setor.
+
+\paragraph{Exercício 2.} A mesma empresa $\kappa$apa também forneceu a
+especificação para um modelo de disco SSD (\emph{solid state disk})
+mostrada na Tabela~\ref{tab:ssd}.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}[ht]{c|c}\hline
+    &\bf modelo SS480 \\\hline
+    taxa de transferência E/S (MB/s) & 600 \\
+    taxa de transferência de dados, leitura (MB/s) & 530  \\
+    taxa de transferência de dados, escrita (MB/s) & 440   \\
+    bytes por setor & 512  \\\hline
+  \end{tabular}
+  \caption{Especificação do modelo SSD da empresa $\kappa$apa.}
+  \label{tab:ssd}
+\end{table}
+
+\noindent Baseando-se na Tabela~\ref{tab:ssd}, calcule o tempo médio
+que o disco leva para transferir dados durante a leitura e escrita de
+4 setores.
+
+\paragraph{Exercício 3.} No manual do disco modelo XX1000 e XX2000 diz
+que ambos os modelos suportam a transferência de dados usando DMA
+(\emph{direct memory access}).  Explique o que significa e como
+ocorre.
+
+\paragraph{Exercício 4.} Faça uma busca e liste outros dispositivos
+que realizam a transferência de dados usando DMA.
+
+\paragraph{Exercício 5.} As interrupções de E/S são padronizadas,
+sendo que cada dispositivo deve possui um identificador. Liste
+dispositivos que possuem uma identificação de interrupção e o número
+da identificação.  Após o dispositivo de E/S ganhar a atenção do
+processador com a interrupção, o que ocorre?
+
+\paragraph{Exercício 6.} Faça uma busca pelos barramentos mais atuais
+e faça uma tabela contendo o ano de criação, taxa de transferência e
+frequência do \emph{clock}.
+
+\paragraph{Exercício 7.} Descreva como o protocolo \emph{handshaking}
+é utilizado para dispositivo de E/S na interconexão assíncrona na
+comunicação com o processador.
+

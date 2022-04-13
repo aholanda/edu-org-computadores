@@ -1,0 +1,37 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[brazil]{babel}
+\usepackage{a4wide}
+\usepackage{tikz}
+\usetikzlibrary{automata,circuits,matrix,shapes.gates.logic.US,positioning}
+\usepackage{circuitikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DEFS
+\newcounter{exc}
+\def\exercise{\bigskip
+  \addtocounter{exc}{1}{\bf Exercício \arabic{exc}.}}
+\def\set#1{\{#1\}}
+\def\<#1>{\langle#1\rangle}
+\def\tuple#1{{\langle #1\rangle}}%
+\def\topic#1{\bigskip{\bf #1}}
+\def\lcompl#1{\overline{#1}} % logical complement
+\def\lxor{\oplus}
+
+% image directory
+\def\imgdir{../_img}
+
+\title{Introdução a Sistemas Digitais}
+\author{Adriano J. Holanda}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+\input bool
+
+\input sequential-circuits
+
+\end{document}

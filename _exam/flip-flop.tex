@@ -1,0 +1,40 @@
+\section*{Flip-flop}
+
+\exercise~Explique qual a diferença entre um circuito combinacional e
+um circuito sequencial?
+
+\exercise~Qual a função de um flip-flop tipo D?
+
+\exercise~As formas de onda mostradas na Figura~\ref{fig:jkff}
+são aplicadas a dois flip-flops diferentes:
+
+\begin{itemize}
+\item J-K disparado por borda de subida $\uparrow$;
+\item J-K disparado por borda de descida $\downarrow$.
+\end{itemize}
+
+Desenhe a forma de onda da saída Q para cada flip-flop, considerando
+inicialmente $Q=0$.
+
+\begin{figure}[ht]
+\centering
+\begin{tikztimingtable}[timing/slope=0,xscale=2,
+  yscale=1.5,semithick]
+  Clock & 13{C} \\
+  Entrada J & 2.2L .4H 1L .4H .6L .4H .6L .4H 1.8L .4H 1.6L .4H .4L .4H 2L\\
+  Entrada K &  2.2L .4H 1L .4H .6L .4H 1.6L .4H .8L .4H 1.6L .4H 1.2L .4H 1.2L \\
+  Saída Q $\uparrow$& \\
+  Saída Q $\downarrow$& \\
+  \extracode
+  \begin{pgfonlayer}{background}
+    \begin{scope}[gray ,semitransparent,dashed,semithick]
+      \foreach \x in {1,...,12}
+      \draw (\x,1) -- (\x,-10);
+    \end{scope}
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\caption{Diagrama de tempo de flip-flop JK.}
+\label{fig:jkff}
+\end{figure}
+
+

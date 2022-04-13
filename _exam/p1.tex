@@ -1,0 +1,128 @@
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: prova
+%%% End: 
+
+\paragraph{Questão 1. (5 pontos)} Converter as seguintes expressões em linguagem C para
+o conjunto de instruções MIPS. As expressões que devem ser convertidas com a adição 
+das instruções de acesso à memória são indicadas nos comentários. 
+Faça o comentário na frente de cada instrução
+comunicando o que ela realiza.
+
+\begin{description}
+% \item[(0,5)] {\tt a = b + (c + 2);}
+%\item[(0,5)]  {\tt a = a + b + c + d + e + 2}
+\item[(1,0)] {\tt a = b $-$ (a $-$ 16)}
+\ifnum\SOL=1
+\begin{verbatim}
+         subi  $t0, $s0, 16
+         sub   $s0, $s1, $t0
+  \end{verbatim}
+\fi  
+\item[(1,0)] {\tt a = b + B[4] // \M}
+\ifnum\SOL=1
+\begin{verbatim}
+         sw   $t0, 16($s6)
+         add  $s0, $s1, $t0
+  \end{verbatim}
+\fi
+
+\item[(1,0)] {\tt if (a == b) a = a + 8; else b = b + 32;}
+\ifnum\SOL=1
+\begin{verbatim}
+         bne  $s0, $s1, ELSE
+         addi $s0, $s0, 8
+         j      EXIT
+  ELSE:  addi $s1, $s1, 32
+  EXIT:
+  \end{verbatim}
+\fi
+
+\item[(2,0)] {\tt i=0; while (i<4) i++;}
+
+\ifnum\SOL=1
+\begin{verbatim}
+         move $s0, $zero
+         addi $s0, $s0, 4
+         move $s1, $zero
+  LOOP:  beq  $s1, $s0, EXIT
+         addi $s1, $s1, 1
+         j    LOOP
+  EXIT: 
+  \end{verbatim}
+\fi
+
+  
+  %\item[(2,0)] {\tt for (b = 0; b < 8; b++) a = b + 4; // \M}
+
+\end{description}
+
+Considere as seguintes atribuições para os registradores: \map{a}{s0}, \map{b}{s1}, 
+\map{c}{s3}, \map{d}{s4}, \map{e}{s5}, \map{B}{s6} (endereço do início do arranjo {\tt B[]}).
+
+\paragraph{Questão 2. (4 pontos)} Calcule o tempo total de execução sem e com {\em
+  pipeline} das instruções relacionadas nos itens $a$ e $b$:
+
+\begin{center}
+\begin{tabular}{|ll|ll|}\hline
+     &  (1 ponto)             &       & (3 pontos) \\\hline\hline
+$a)$ & \tt add \$s1,\$s2,\$t1 &  $b)$ & \tt lw  \$s1,0(\$t0)\\
+     & \tt add \$s2,\$s3,\$t2 &     & \tt add \$s1,\$s2,\$s1\\
+     &                        &     & \tt sub \$s1,\$s1,\$t1\\
+     &                        &     & \tt sw  \$s1,0(\$t0)\\\hline
+ \end{tabular}
+\end{center}
+
+\noindent tendo os seguintes tempos de execução dos passos intermediários
+como referência:\\
+
+\begin{tabular}{l|l|c|l}\hline
+{\bf\small classe da tarefa}  & \hfil {\bf tarefa} \hfill& {\bf tempo
+  (ps)} & \hfil {\bf\small instruções da classe} \hfill \\\hline\hline
+ IF ({\em instruction fetch}) & ``pegar'' a instrução & 200 & {\tt lw, sw,
+ add, sub}\\\hline
+ REGr &  leitura do registrador & 100 & {\tt lw, sw, add, sub}\\\hline
+ ULA & operação aritmética & 200 & {\tt lw, sw, add, sub}\\\hline
+ MEM & acesso à memória & 200 & {\tt lw, sw}\\\hline
+ REGw & escrita no registrador & 100 & {\tt lw, add, sub}\\\hline
+\end{tabular}
+
+\bigskip
+\noindent Faça um diagrama de blocos (Gantt) descrevendo os passos intermediários das
+instruções.
+
+
+\paragraph{Questão 3. (1 ponto)} O texto a seguir foi elaborado por
+Carlos Morimoto e está transcrito no livro "Hardware: Manual Completo",
+ disponível no site {\tt hardware.com.br}. Leia-o atentamente e responda as 
+ questões a seguir:
+
+\begin{quote}
+  ``Examinando de um ponto de vista um pouco mais prático, a vantagem
+  de uma arquitetura CISC é que já temos muitas das instruções
+  guardadas no próprio processador, o que facilita o trabalho dos
+  programadores, que já dispõe de praticamente todas as instruções que
+  serão usadas em seus programas. No caso de um chip estritamente
+  RISC, o programador já teria um pouco mais de trabalho, pois como
+  disporia apenas de instruções simples, teria sempre que combinar
+  várias instruções sempre que precisasse executar alguma tarefa mais
+  complexa. Seria mais ou menos como se você tivesse duas pessoas, uma
+  utilizando uma calculadora comum, e outra utilizando uma calculadora
+  cientifica. Enquanto estivessem sendo resolvidos apenas cálculos
+  simples, de soma, subtração, etc. quem estivesse com a calculadora
+  simples poderia até se sair melhor, mas ao executar cálculos mais
+  complicados, a pessoa com a calculadora científica disporia de mais
+  recursos.''
+\end{quote}
+
+A partir do texto apresentado descreva, de forma sucinta, as
+diferenças entre as arquiteturas RISC e CISC e que estejam
+relacionadas com os conceitos apresentados em aula, listados a seguir:
+
+\begin{itemize}
+\item[(0,25)] Unidade Lógica e Aritmética;
+\item[(0,25)] Número de registradores;
+\item[(0,25)] Conjunto de instruções;
+\item[(0,25)] Custo e performance.
+
+\end{itemize}

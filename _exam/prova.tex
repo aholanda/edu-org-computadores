@@ -1,0 +1,61 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+\documentclass[]{exam}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes.gates.logic.US}
+\usepackage{circuitikz}
+\usepackage{tikz-timing}
+\usepackage{enumerate}
+\usepackage[first=0,last=31]{lcg}
+\reinitrand[first=0, last=15]
+
+\def\EXAM{4}
+
+\def\thelist{0,1,2,3,4}
+\ifnum\EXAM=0
+\def\thelist{0,1,2,3,4}
+\fi
+\ifnum\EXAM=1
+\def\thelist{4,3,2,1,0}
+\fi
+\ifnum\EXAM=2
+\def\thelist{0,4,3,2,1}
+\fi
+\ifnum\EXAM=3
+\def\thelist{3,2,1,0,4}
+\fi
+\ifnum\EXAM=4
+\def\thelist{0,3,2,1,4}
+\fi
+
+\def\map#1#2{{\tt #1} $\Leftarrow$\ {\tt\$#2}}
+\def\M{com acesso à memória}
+
+% add solution?
+\def\SOL{1}
+
+\newcounter{qno}
+\def\question#1{Questão \arabic{qno}.~\addtocounter{qno}{1}}
+\def\newex{\arabic{qno}\addtocounter{qno}{1}}
+\def\~#1{\overline{#1}}
+
+\title{Computer Organization exam}
+\author{no mistery}
+
+\begin{document}
+\maketitle
+
+\input p1
+
+\input p2
+
+\input p-boolean % add exercises using \def
+
+\input p-representacao
+
+\input p-circuits
+
+\end{document}

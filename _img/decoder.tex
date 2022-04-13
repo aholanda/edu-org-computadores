@@ -1,0 +1,47 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+\begin{tikzpicture}
+
+\def\shift{2cm}
+
+\tikzset{
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    decoder/.style={minimum width=\shift,minimum height=\shift,draw},
+    header/.style={minimum width=1.5*\shift,white},
+    in header/.style={header, fill=green!65!black},
+    out header/.style={header, fill=red!80!black}
+}
+
+\node[decoder] (DECODER) at (0,0) {decodificador};
+\node (out tip) at (\shift, 0) {};
+\node (in tip) at (-\shift, 0) {};
+
+\newcounter{lout}\setcounter{lout}{0}
+\foreach \i in {-4,-3,-2,-1,0,1,2,3} {
+    \path[wire] (.5*\shift,.225*\i+.1) -- (\shift,.225*\i+.1) node[right]{\tiny \arabic{lout}};
+    \addtocounter{lout}{1}
+}
+
+\path[wire] (in tip) node[above right] {\tiny 3} -- (DECODER);
+\path[draw] (in tip.south east)+(.2*\shift,0) -- +(.08*\shift,.2*\shift);
+
+\matrix [right of=DECODER, xshift=2.5*\shift] (truth table) {
+    \node[in header]{Entradas};&\node[out header]{Sa\'idas};\\     
+    \node[in header]{2\ \ 1\ \ 0};&\node[out header]{7\ \ 6\ \ 5\ \ 4\ \ 3\ \ 2\ \ 1\ \ 0};\\     
+    \node{0\ \ 0\ \ 0}; & \node{0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 1};\\
+    \node{0\ \ 0\ \ 1}; & \node{0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 1\ \ 0};\\
+    \node{0\ \ 1\ \ 0}; & \node{0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 1\ \ 0\ \ 0};\\
+    \node{0\ \ 1\ \ 1}; & \node{0\ \ 0\ \ 0\ \ 0\ \ 1\ \ 0\ \ 0\ \ 0};\\
+    \node{1\ \ 0\ \ 0}; & \node{0\ \ 0\ \ 0\ \ 1\ \ 0\ \ 0\ \ 0\ \ 0};\\
+    \node{1\ \ 0\ \ 1}; & \node{0\ \ 0\ \ 1\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0};\\
+    \node{1\ \ 1\ \ 0}; & \node{0\ \ 1\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0};\\
+    \node{1\ \ 1\ \ 1}; & \node{1\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0\ \ 0};\\
+};
+
+\node [above of=truth table, yshift=\shift] {Tabela-Verdade};
+\end{tikzpicture}
+

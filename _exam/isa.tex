@@ -1,0 +1,53 @@
+
+Para os exercícios desta lista, assuma que as variáveis {\tt f}, {\tt
+  g}, {\tt h}, {\tt i} e {\tt j} são atribuídas para os registradores
+{\tt \$s0}, {\tt \$s1}, {\tt \$s2}, {\tt \$s3} e {\tt \$s4},
+respectivamente. Também assuma que os endereços base para os vetores
+{\tt A} e {\tt B} estão nos registros {\tt \$s6} e {\tt \$s7},
+respectivamente. 
+
+\paragraph{Exercício 1.} Considere as expressões em C a seguir:
+
+\begin{tt}
+\begin{center}
+\begin{tabular}{|l|l|}\hline
+  a) &f = f + f + i\\\hline
+  b) &f = f + g + (j + 10)\\\hline
+  c) & f = g + h + B[4]\\\hline
+  d) & f = g + h - A[B[3]]\\\hline
+  e) & A[2] = h + A[1]\\\hline
+  f) & A[3] = A[0] + A[1] + A[2]\\\hline
+  g) & if (f == g) f += g; else f -= g;\\\hline
+  h) & f = 3; A[0] = 1; for (i=1; i<32; i++) A[i] = A[i-1] + f;\\\hline
+\end{tabular}
+\end{center}
+\end{tt}
+
+\noindent 1.1. Converta as expressões em C para código MIPS, usando o menor
+  número de instruções possível.\\
+1.2. Quantas instruções MIPS são necessárias para executar cada
+  expressão em C.\\
+
+\paragraph{Exercício 2.} Converta as instruções MIPS a seguir na expressão
+equivalente na linguagem C. Utilize a mesma convenção de atribuição de 
+variáveis aos registradores do exercício anterior.\\
+
+\begin{tt}
+\begin{center}
+\begin{tabular}{|l|l|}\hline
+  a) & add \$s0, \$s1, \$s2\\\hline
+  b) & add \$s0, \$s0, \$s2\\\hline
+  c) & addi \$s1, \$s0, 1\\
+  &add \$s0, \$s1, \$s2\\\hline
+  d) & add \$s0, \$s0, \$s1 \\
+  & add \$s0, \$s3, \$s2\\
+  & add \$s0, \$s0, \$s3 \\\hline
+  e) & lw \$t0, 20(\$s6) \\
+  & add \$t1, \$s1, \$t0 \\
+  & add \$t0, \$s0, \$t1 \\
+  & sw \$t0, 32(\$s7)\\\hline
+\end{tabular}
+\end{center}
+\end{tt}
+
+

@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+
+% additional packages
+\usepackage{hyperref}
+\usepackage{ifpdf}
+\usepackage{tikz}
+\usepackage{pgffor}
+
+\pagestyle{empty}
+
+\def\theradius{1.5cm}
+
+% Ideia retiradas do link
+% http://www.csunplugged.org/binary-numbers
+
+\begin{document}
+
+\begin{tikzpicture}
+  \draw[draw=white] (0,0.1\textwidth) circle (\theradius);
+  \draw[fill] (.4\textwidth,0.6\textheight) circle (\theradius);
+\end{tikzpicture}
+\pagebreak
+
+\begin{tikzpicture}
+  \foreach \p in {0.1,0.9} {
+  \draw[fill] (\p\textwidth,\p\textheight) circle (\theradius);
+}
+\end{tikzpicture}
+\pagebreak
+
+\begin{tikzpicture}
+  \foreach \x/\y in {0.1/0.1,0.9/0.1,0.1/0.9,0.9/0.9} {
+  \draw[fill] (\x\textwidth,\y\textheight) circle (\theradius);
+}
+\end{tikzpicture}
+\pagebreak
+
+\begin{tikzpicture}
+  \foreach \x in {0.1,0.9}
+    \foreach \y in {0.1,0.4,0.65,0.9} 
+      \draw[fill] (\x\textwidth,\y\textheight) circle (\theradius);
+
+\end{tikzpicture}
+\pagebreak
+
+
+\begin{tikzpicture}
+  \foreach \x in {0,0.3,0.6,0.9}
+    \foreach \y in {0,0.3,0.6,0.9} 
+      \draw[fill] (\x\textwidth,\y\textheight) circle (\theradius);
+
+\end{tikzpicture}
+
+\pagebreak
+
+\begin{tikzpicture}
+  \draw[line width=10pt] (0.7\textwidth,0.5\textheight) ellipse (5cm and 11cm);
+\end{tikzpicture}
+
+\end{document}
+

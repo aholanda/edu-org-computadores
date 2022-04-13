@@ -1,0 +1,175 @@
+\lecture{Entrada/Saída e Armazenamento}{storage}
+
+\lecturetitle{\insertlecture}{\course}
+
+\section{\insertlecture}
+
+\frame{\maketitle}
+
+\note{A Figura~\ref{fig:iointerconnect} mostra a visão abstrata de um
+sistema simples com sua estrutura de entrada-saída (E/S). A
+transmissão de dados pela interconexão de memória-E/S forma uma rede
+complexa devido à diversidade de dispositivos. Por este motivo
+detalhes da comunicação no barramento foram ocultados.}
+
+\begin{frame}{Interconexão de E/S}
+\begin{figure}[h]
+  \centering
+  \input{img/interconnect}
+  \caption{Visão abstrata de um sistema com sua estrutura E/S.}
+  \label{fig:iointerconnect}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Performance}
+  Para determinação da performance do dispositivo é preciso determinar a
+  largura de banda ({\em bandwidth}) que pode ser obtida por este
+  dispositivo no barramento. Há dois tipos de medidas que podem ser
+  realizadas para determinar a largura de banda de E/S:
+
+  \begin{enumerate}
+  \item Quantidade de dados tranportados em determinado período de tempo;
+  \item Número de operações de entrada e saída que podem ser realizadas
+    em um determinado período de tempo.
+  \end{enumerate}
+
+\end{frame}
+
+% \begin{frame}{Especificação de serviços de armazenamento}
+% \begin{figure}[h]
+% \begin{center}
+% \input{img/transition}
+% \end{center}
+% \label{state:spec}
+% \caption{Diagrama de transição de estados relacionado a falha e
+%   recuperação de um disco.}
+% \end{figure}
+% \end{frame}
+
+% \begin{frame}{Conceitos básicos de armazenamento}
+% \begin{description}
+% \item[Confiabilidade ($t^C$):] é a medida de fornecimento contínuo do serviço
+%   pelo sistema conforme especificado;
+% \item[Recuperação ($t^R$):] é a medida quantitativa de tempo que o sistema
+%   levou para sair do estado não especificado para o especificado, ou
+%   seja, é o tempo de reparo;
+% \item[Disponibilidade ($t^D$):] é a medida quantitativa do tempo em que sistema
+%   forneceu o serviço conforme especificado;
+%   \begin{equation}
+%     \label{eq:avail}
+%     t^D = {\sum_{i=1}^{N}{t_i^C} \over {\sum_{i=1}^{N}{t_i^C} + \sum_{i=1}^{N}{t_i^R}}}
+%   \end{equation}
+% \noindent onde $N$ é número de transições do estado {\em especificado} para
+% o estado {\em não especificado}, ou seja, o número de falhas.
+% \end{description}
+% \end{frame}
+
+
+\subsection{Armazenamento em disco}
+
+\begin{frame}{Disco Rígido}
+O disco rígido (Figura~\ref{fig:hd}) é composto por bandejas rotativas
+com superfície magnética e cabeçote deslizante de acesso ao disco para
+leitura e escrita.
+
+  \begin{figure}[h]
+  \centering
+\input{img/zfig-hd}
+\label{fig:hd}
+\caption{Esquema de disco rígido.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Característica de um disco rígido}
+\begin{itemize}
+\item Não volátil: mesmo sem energia, conserva o estado dos dados armazenados;
+\item Bandejas: 1 -- 4;
+\item Velocidade de rotação: 5.400 -- 15.000 RPM;
+\item Diâmetro da bandeja: 1 -- 3,5 polegadas;
+\item Trilhas: 10.000 -- 50.000 por superfície;
+\item Setor: 512 B.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Estágios de acesso ao disco rígido}
+\small
+  O termo {\bf cilindro} refere-se às trilhas sob o cabeçote em cada
+superfície.
+
+Para acessar os dados o sistema operacional deve acessar diretamente o
+disco em um processo de 3 estágios:
+
+
+  \begin{enumerate}
+\item {\bf Busca da trilha:} o cabeçote procura a trilha desejada;
+\item {\bf Latência de rotação:} o cabeçote procura o setor desejado;
+  $$\overline{t}^R = {0,5\ R \over 5.400\ RPM}= { 0,5 R \over {5.400
+    R/min \over (60 s/min)}} = 0,0056\ s = 5,6\ ms$$
+  $$\overline{t}^R = {0,5\ R \over 15.000\ RPM}= { 0,5 R \over {15.000
+    R/min \over (60 s/min)}} = 0,0020\ s = 2,0\ ms$$
+
+Calcular o tempo médio de rotação para acesso aos dados de um disco
+com velocidade de rotação de 7.200 RPM.
+
+\item {\bf Tempo de transferência:} tempo para transferir um bloco de bits.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercício 1.} 
+Qual o tempo médio para ler ou escrever um setor de 512 bytes para um
+disco com rotação de 15.000 RPM? O tempo médio de busca é 4 ms, o
+tempo de transferência é 100 MB/s, e o tempo de atraso da controladora
+é 0,2 ms. Assumir que o disco está ocioso, ou seja, não há tempo de
+espera.
+
+\pause
+
+$$ 4,0 ms + {0,5\ R \over 15.000\ RPM} + {0,5\ KB \over 100\ MB/s} +
+0,2\ ms = 6,2\ ms$$
+
+\pause\bigskip\small\color{blue}
+Para os discos rígidos atuais, a interface controladora
+convergiu para dois padrões principais:
+\begin{itemize}
+\item SATA -- {\em Serial Advanced Technology Attachment};
+\item SCSI -- {\em Small Computer System Interface}.
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{Memória flash}
+
+\begin{frame}{Características}
+\begin{itemize}
+\item Semi-condutora;
+\item Latência de 100 a 1.000 menor quando comparada ao disco;
+\item Ocupa menos espaço;
+\item Mais eficiente;
+\item Resistente a queda;
+\item Popular em dispositivos móveis (devido ao tamanho e pouca escrita);
+\item EEPROM.
+\end{itemize}
+
+Tempo de escrita = 1.500 ms para apagar + 250 ms. Por este motivo não
+é popular em servidores e desktops.
+
+\end{frame}
+
+\begin{frame}{Exercício 2} 
+
+  Calcular o tempo médio de {\bf leitura} em uma memória flash com blocos de
+  1024 bytes com taxa de transferência de dados de 32 MB/s e taxa de
+  transferência do controlador de 360 MB/s.
+
+\pause
+
+$${1\ K \over 32\ MB/s}+{1\ K \over 360 MB/s} = 0,034\ ms$$
+
+\end{frame}
+
+\bibliographystyle{plain}
+\bibliography{cod}
+
+\end{document}

@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+  \def\w{2cm}\footnotesize
+  \def\h{\w/2}
+  \def\r{2.5pt}
+  \node[rectangle, minimum height=\h, minimum width=2.5*\w, draw] (DECODER) {decodificador 74ALS138};
+  \foreach \X/\x in {2/0,1/.5,0/1}{
+    \path[draw] (DECODER.north west)+(\x,0) -- +(\x, \h) node[above] {$x_\X$};
+  }
+  \foreach \f/\x in {7/0,6/.5,5/1,4/1.5,3/2,2/2.5,1/3,0/3.5}{
+    \draw (DECODER.south west)[yshift=-\r,xshift=\x cm] circle (\r) node (INV\f) {};
+    \path[draw] (INV\f) -- +(0, -\h) node[below] {$\overline{f_\f}$};
+  }
+  \node[minimum height=\h,anchor=east,draw,and gate US,rotate=-90] (AND) at (DECODER.north east)[yshift=-\h] {};
+  \foreach \p/\e in {south west/1, mid west/2}{
+    \draw[]  (AND.\p)[yshift=\r] circle (\r) node (AINV\p) {};
+    \path[draw] (AND.\p)+(0,2*\r) -- +(0,\h/2) node[above] {$\overline{e_\e}$};
+  }
+  \path[draw] (AND.north west) -- +(0,\h/2) node[above] {$e_3$};
+\end{tikzpicture}

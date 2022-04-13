@@ -1,0 +1,26 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+
+\begin{tikzpicture}
+  
+  \node[and gate US, minimum height=2cm, draw] at (-6,0) (G) {};
+  \draw (G.input 1 -| -8,0) node[anchor=east] {$i$} -- (G.input 1); 
+  \draw (G.input 2 -| -8,0) node[anchor=east] {$c$} -- (G.input 2); 
+  \draw (G.output) -- ([xshift=0.5cm]G.output) node[anchor=west]
+  {$x$};
+
+  \def\AND{{\tt AND}}
+
+\matrix (and truth table) [matrix of nodes]
+{\hline
+ $i$ & $c$ & $x$ \\\hline
+ 0 & 0 & 0 \\
+ 0 & 1 & 0 \\
+ 1 & 0 & 0 \\
+ 1 & 1 & 1 \\
+};
+
+\end{tikzpicture}
+

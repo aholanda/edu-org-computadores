@@ -1,0 +1,249 @@
+
+\def\myfigure{{\tt\vspace{3cm}\Large FIGURA\vspace{3cm}}}
+
+\section{Circuitos Sequenciais}
+
+\subsection*{Breve revisão}
+
+\paragraph{Clocks.}~A abordagem com uso de clocks permite determinar
+quando o dado é válido e estável. O sinal do clock oscila entre
+valores de alta e baixa voltagem.
+
+
+\myfigure
+
+\paragraph{Elemento de estado.}~É o elemento de armazenamento ou
+memória.
+
+\myfigure
+
+\paragraph{Sistema síncrono.}~Sistema de memória que emprega clocks e
+onde os sinais de dados são lidos somente quando o clock indica que o
+valor é estável.
+
+\paragraph{Latch.}~Elemento de memória em que a saída é igual ao valor
+de estado de armazenamento dentro do elemento e o estado é alterado
+sempre que as entradas apropriadas alteram-se e o clock está ativado.
+
+
+\myfigure
+
+
+\paragraph{Flip-flop.}~Elemento de memória em que a saída é igual ao
+valor do estado interno armazenado e o estado é alterado somente na
+borda do clock.
+
+\myfigure
+
+
+\paragraph{Circuito combinacional.} Circuito sem memória em que a
+saída depende somente da entrada.
+
+\myfigure
+
+
+\noindent Exemplos:
+
+\noindent Multiplexador 2-para-1
+
+\myfigure
+
+\noindent Decodificador 2-para-4
+
+
+\myfigure
+
+
+\subsection*{Análise de Circuitos Sequenciais}
+
+
+\noindent Latch S-R com porta NOR
+
+\myfigure
+
+\noindent Tabela de estados
+
+\begin{center}
+\begin{tabular}[ht]{cccc}\hline
+  & & atual & próximo \\\hline
+  S=$x_1$ & R=$x_2$ & Q=$f$ & $f^+$\\\hline
+  0& 0 & 0 & 0\\
+  0& 0 & 1 & 1\\
+  0& 1 & 0 & 0\\
+  0& 1 & 1 & 0\\
+  1& 0 & 0 & 1\\
+  1& 0 & 1 & 1\\
+  1& 1 & 0 & Inválido\\  
+  1& 1 & 1 & Inválido\\
+\end{tabular}
+\end{center}
+
+Como analisar o circuito sequencial que é baseado em flip-flops que
+são construídos com latches?
+
+
+\myfigure
+
+\subsubsection{Máquina de Estado Finito}
+
+Tabelas de estado e diagramas de tempo descrevem o comportamento dos
+circuitos sequenciais. Uma descrição gráfica equivalente é fornecida
+por uma {\bf Máquina de Estado Finito (MFE)}. As MFEs usam círculos
+para representar os estados e arcos direcionados para representar as
+transições de um estado a outro.
+
+\noindent Exemplo: máquina de estados de um semáforo
+
+\myfigure
+
+
+Das máquinas de estado finito criadas para analisar circuitos
+sequenciais destacam-se:
+
+\begin{itemize}
+\item Máquina de Moore;
+\item Máquina de Mealy.
+\end{itemize}
+
+
+\subsubsubsection{Máquina de Moore}
+
+Criada por Edward F.\ Moore em 1956, é uma MEF com as seguintes
+propriedades:
+
+\begin{itemize}
+\item O próximo estado depende somente do estado atual;
+\item As saída alteram na borda do clock.
+\end{itemize}
+
+
+\myfigure
+
+
+\subsubsubsection{Máquina de Mealy}
+
+Criada em 1955 por George H.\ Mealy, é uma MEF com as seguintes
+propriedades:
+
+\begin{itemize}
+\item O próximo estado depende do estado atual e das entradas;
+\item Reagem no mesmo ciclo, ou seja, não esperam pela borda do clock.
+\end{itemize}
+
+\myfigure
+
+
+\subsubsection{Análise de Circuitos Sequenciais usando MEFs}
+
+
+\paragraph{Máquina de Moore do Latch SR.} As máquinas de Moore e Mealy
+podem ser descritas de forma completa pela quíntupla $M=
+\<Q,S,\Sigma,\Gamma,\delta> $, onde:
+
+\begin{description}
+  \item[$Q$] -- conjunto finito que representa as configurações da máquina;
+  \item[$S$] -- configuração inicial antes de receber as entradas;
+  \item[$\Sigma$] -- alfabeta de entrada ou conjunto de eventos que a
+    máquina reconhece;
+  \item[$\Gamma$] -- alfabeto finito de saída;
+  \item[$\sigma$] -- função Booleana de transição que mapeia o próximo
+    estado.
+
+\end{description}
+
+\noindent Exemplo: Latch S-R
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[state/.style=state with output]
+  \def\D{2cm}
+  \node[state] (q0) {$q_0$ \nodepart{lower} $[0]$};
+  \node[state] (q1) [right of=q0,xshift=\D] {$q_1$ \nodepart{lower} $[1]$};
+  \node[state] (q2) [right of=q0,xshift=\D/2.75,yshift=-\D] {$\epsilon$};
+  
+  \path[->] (q0) edge[bend left] node[above] {10} (q1)
+  (q0) edge[bend right] node[left] {11} (q2)
+  (q1) edge[bend left] node[above] {01} (q0)
+  (q1) edge[bend left] node[right] {11} (q2)
+  (q0) edge[loop above] node {00,01} ()
+  (q1) edge[loop above] node {00,10} ()
+  ;
+\end{tikzpicture}
+\caption{Estados da máquina de Moore para o latch SR.}
+\label{fig:mooreSR}
+\end{figure}
+
+A descrição formal da máquina de Moore que representa o latch S-R é
+$Mo=\<Q,\Sigma,\delta,S,\Gamma>$ onde:
+
+\begin{enumerate}
+\item $\epsilon=$ estado ``Inválido''
+\item $Q = \{q_0, q_1,\epsilon\}$
+\item $\Sigma = \{0,1\}$
+\item $\delta=$\\
+
+  \begin{center}
+  \begin{tabular}[ht]{c|cccc}
+    & $00$ & $01$ & $10$ & $11$ \\\hline
+    $q_0[0]$ & $\set{q_0}$ & $\set{q_0}$ & $\set{q_1}$ & $\set{\epsilon}$\\
+    $q_1[1]$ & $\set{q_1}$ & $\set{q_0}$ & $\set{q_1}$ & $\set{\epsilon}$\\
+  \end{tabular}
+\end{center}
+
+\item $S=q : q \in \{q_0, q_1\}$ 
+
+\item $\Gamma=q : q\in \{q_0,q_1\}$ 
+
+\end{enumerate}
+
+\paragraph{Máquina de Mealy do Latch SR.}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[]
+  \def\D{2cm}
+  \node[state] (q0) {$q_0$};
+  \node[state] (q1) [right of=q0,xshift=\D] {$q_1$};
+  \node[state] (q2) [right of=q0,xshift=\D/2.75,yshift=-\D] {$\epsilon$};
+  
+  \path[->] (q0) edge[bend left] node[above] {10/0} (q1)
+  (q0) edge[bend right] node[left] {11/0} (q2)
+  (q1) edge[bend left] node[above] {01/1} (q0)
+  (q1) edge[bend left] node[right] {11/1} (q2)
+  (q0) edge[loop above] node {00/0,01/0} ()
+  (q1) edge[loop above] node {00/1,10/1} ()
+  ;
+\end{tikzpicture}
+\caption{Estados da máquina de Mealy para o latch SR.}
+\label{fig:mealySR}
+\end{figure}
+
+
+
+A descrição formal da máquina de Mealy que representa o latch S-R é
+$Me=\<Q,\Sigma,\delta,S,F>$ onde:
+
+\begin{enumerate}
+\item $\epsilon=$ estado ``Inválido''
+\item $Q = \{q_0, q_1,\epsilon\}$
+\item $\Sigma = \{0,1\}$
+\item $\delta=$\\
+
+  \begin{center}
+  \begin{tabular}[ht]{c|cccccccc}
+    & $00/0$ & $00/1$ & $01/0$ & $01/1$ &  $10/0$ & $10/1$ & $11/0$ & $11/1$ \\\hline
+    $q_0$ &  $\set{q_0}$ & $\emptyset$ & $\set{q_0}$ &
+    $\emptyset$ &$\set{q_1}$ & $\emptyset$& ``Inválido'' & $\emptyset$ \\
+    $q_1$ & $\emptyset$  &  $\set{q_1}$& $\emptyset$ &
+    $\set{q_0}$ & $\emptyset$ & $\set{q_1}$ &  $\emptyset$&``Inválido''\\
+  \end{tabular}
+\end{center}
+
+\item $S= q : q \in \{q_0, q_1\}$ 
+
+\item $\Gamma= q : q \in \{q_0, q_1\}$ 
+
+\end{enumerate}
+
+Para as próximas MEFs, iremos construir as máquinas de Moore e Mealy
+se forem diferentes, senão, construiremos apenas a máquina de Moore.

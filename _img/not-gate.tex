@@ -1,0 +1,21 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+
+\begin{tikzpicture}
+\node[not gate US, minimum height=2cm, draw] at (-6,0) (G) {};
+\draw (G.input -| -8,0) node[anchor=east] {$i$} -- (G.input); 
+\draw (G.output) -- ([xshift=0.5cm]G.output) node[anchor=west] {$x$};
+
+\def\NOT{{\tt NOT}}
+\matrix (not truth table) [matrix of nodes]
+{\hline
+  $i$ & $x$ \\\hline
+   0 &  1 \\
+   1 &  0 \\
+};
+
+\end{tikzpicture}
+  
+

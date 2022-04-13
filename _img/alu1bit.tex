@@ -1,0 +1,63 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+\begin{circuitikz}
+\def\shift{1.5cm}
+
+\colorlet{aincolor}{green!75!black}
+\colorlet{bincolor}{blue!35!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    header/.style={minimum width=1.*\shift,white},
+    a header/.style={header, fill=aincolor},
+    b header/.style={header, fill=bincolor},
+    out header/.style={header, fill=outcolor},
+    mux/.style={rectangle, minimum height=3.5*\shift,minimum width=.25*\shift, rounded corners=2mm, draw},
+    adder/.style={minimum width=.75*\shift,minimum height=.75*\shift,draw}
+}
+
+%GATES
+\node[mux] (MUX) at (0,0) {};
+\node[below] (or anchor) at (MUX.north west) {};
+\node[] (and anchor) at (MUX.west) {};
+\node[above] (adder anchor) at (MUX.south west) {};
+
+\node[above] (mux label) at (MUX.north) {\tt mux};
+\draw node[or port,anchor=north west] [left of=or anchor,xshift=-.25*\shift] (OR) {};
+\draw node[and port] [left of=and anchor,xshift=-.25*\shift] (AND) {};
+\node[adder] [left of=adder anchor,xshift=-.35*\shift] (ADDER) {\Large $+$};
+
+%WIRES
+\path[aincolor]  (OR.in 1) -- +(-1,0) node[above] (A) {A};
+\path[bincolor]   (AND.in 2) -- +(-1,0) node[above] (B) {B};
+\path[aincolor]  (A.south east) node[circ] {}  |- (AND.in 1) -- +(-.51*\shift,0) |- (ADDER.210);
+\path[bincolor]  (B.south east)+(.78,0) node[circ] {}  |- (OR.in 2) --
++(0,-.5*\shift) |- (ADDER.150);
+
+%%Cin
+\node[anchor=north] (CIN) at (ADDER.50) {};
+\path[->,>=latex] (CIN)+(0,3.5*\shift) node[above] {C$_{in}$} -- (CIN);
+%%Cout
+\node[anchor=south] (COUT) at (ADDER.south) {};
+\path[->,>=latex] (COUT) -- +(0,-.5*\shift) node[below] {C$_{out}$};
+
+\node[right] (zero) at (or anchor) {$0$};
+\node[right] (one) at (and anchor) {$1$};
+\node[right] (two) at (adder anchor) {$2$};
+
+
+\path[->,>=latex] (OR.out) -- (or anchor.east);
+\path[->,>=latex] (AND.out) -- (and anchor.east);
+\path[->,>=latex] (ADDER.east) -- (adder anchor.east);
+
+%RESULT
+\path[->,>=latex] (MUX.east) -- +(.5*\shift,0) node[above] {S};
+
+\end{circuitikz}

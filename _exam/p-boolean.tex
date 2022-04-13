@@ -1,0 +1,317 @@
+
+\def\MIN{
+  \question[1]
+  Simplificar as expressões Booleanas:
+  
+  \begin{parts}
+    \part
+    $\!{ \!{{(s\+\!t)}} \+ \!{(s\+\!u)} \+ v}$
+
+    \begin{solution}
+      $(s + \!t)(s + \!u) \!v$
+    \end{solution}
+
+    \part
+    $\!xyz \+ x\!yz \+ xy\!z \+ xyz$
+    \begin{solution}
+      $yz+xz+xy$
+    \end{solution}
+
+    \part
+    $\!x(x\+y) \+ (y\+x)(x\+\!y)$
+    \begin{solution}
+      $x+y$
+    \end{solution}
+
+
+    \part
+    $\!{ \!{x\+yz}\ {\!{x\!y}} }$
+    \begin{solution}
+      $x+yz$
+    \end{solution}
+
+  \end{parts}
+}
+
+\def\theorems{\footnotesize
+\hfil {\bf Teoremas Booleanos}
+\begin{tabbing}
+  \noindent \=T1. Elemento nulo: \hspace{1cm}\= $x+1=1$\hspace{3cm}\= $x.0=0$\\
+  \> T2. Idempotência:\> $x+x=x$ \>$ x.x=x$ \\
+  \> T3. Absorção: \>$x+x.y=x $ \>$ x.(x+y) = x$ \\
+  \> T4. Adsorção: \>$(\!x+y).x=x.y $ \>$ x+\!x.y = x+y$ \\
+  \> T5. Associatividade: \> $(x+y)+z=x+(y+z)$ \> $(x.y).z = x.(y.z)$\\
+  \> T6. De Morgan: \> $\!{x+y} = \!x.\!y$ \> $\!{x.y} = \!x + \!y$ \\
+\end{tabbing}
+
+}
+
+\def\ALSdecoder{ \question[1] Determine os níveis de cada saída do
+  decodificador mostrado na Figura~\ref{fig:alsdecoder} para as
+  seguintes condições de entrada:
+
+\begin{parts}
+\part
+Todas as entradas em nível baixo;
+\part
+Todas as entradas em nível baixo, exceto $e_3=1$;
+\part
+Todas as entradas em nível alto, exceto $\!e_1=\!e_2=0$;
+\part
+Todas as entradas em nível alto.
+\end{parts}
+
+  \begin{figure}[ht]
+    \centering
+    \input{\imgdir/decoder-74ALS138}
+
+    \caption{Decodificador 74ALS138.}
+    \label{fig:alsdecoder}
+  \end{figure}
+
+  \begin{solution}
+    \begin{enumerate}[a)]
+    \item $f_0=f_1=f_2=f_3=f_4=f_5=f_6=f_7=1$
+      \item $f_0=0$
+      \item $f_7=0$
+      \item $f_0=f_1=f_2=f_3=f_4=f_5=f_6=f_7=1$
+    \end{enumerate}
+  \end{solution}
+
+\question[1]
+Para que condições de entrada produzirão as seguintes saídas no
+decodificador mostrado na Figura~\ref{fig:alsdecoder}?
+
+\begin{parts}
+  \part
+  Nível baixo em $f_6$;
+  \part
+  Nível baixo em $f_3$;
+  \part
+  Nìvel baixo em $f_5$;
+  \part
+  Nível baixo em $f_0$ e $f_7$, simultaneamente.
+\end{parts}
+
+
+  \begin{solution}
+    \begin{enumerate}[a)]
+    \item $f(x_2,x_1,x_0,e_1,e_2,e_3)=f(1,1,0,0,0,1)$
+      \item $f(x_2,x_1,x_0,e_1,e_2,e_3)=f(0,1,1,0,0,1)$
+      \item $f(x_2,x_1,x_0,e_1,e_2,e_3)=f(1,0,1,0,0,1)$
+      \item $f(x_2,x_1,x_0,e_1,e_2,e_3)=\emptyset$, não há condições para esta saída
+    \end{enumerate}
+  \end{solution}
+}
+
+\def\MUX74HC151{
+
+  \question[2]~O circuito da Figura~\ref{fig:mux74hc151} mostra como
+  um mux 74HC151 de 8 entradas pode ser usado para gerar uma função de
+  4 variáveis lógicas. Três das variáveis lógicas, $x_0, x_1, x_2$ são
+  conectadas na entrada de seleção. A quarta variável, $x_3$, e seu
+  inverso, $\overline{x_3}$, são conectadas em entradas de dados
+  selecionadas do mux, conforme requer a função lógica desejada. As
+  outras entradas de dados são conectadas em nível baixo ou alto,
+  conforme requer a função lógica.
+
+\begin{parts}
+  \part
+  Construa a tabela-verdade mostrando a saída $f(x_0,x_1,x_2,x_3)$
+  para as 16 combinações possíveis das variáveis de entrada.
+  \part
+  Escreva a função $f(x_0,x_1,x_2,x_3)$ na forma normal disjuntiva e
+  simplifique-a.
+
+\end{parts}
+
+\begin{figure}[ht]
+\centering
+\input{\imgdir/mux-74hc151}
+\caption{Implementação de função lógica usando o multiplexador modelo
+  74HC151.}
+\label{fig:mux74hc151}
+\end{figure}
+
+\begin{solution}
+  \begin{enumerate}[a)]
+  \item $f(x_0,x_1,x_2,x_3)=\!x_0\,\!x_1x_2x_3 + \!x_0x_1\!x_2 + x_0\!x_1\!x_2\!x_3$\\
+    \begin{center}
+      \begin{tabular}[ht]{cccc|c}
+        $x_0$& $x_1$ & $x_2$ & $x_3$ & $f(x_0,x_1,x_2,x_3)$\\\hline
+        0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 0\\
+        0 & 0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 1 & 1\\
+        0 & 1 & 0 & 0 & 1\\
+        0 & 1 & 0 & 1 & 1\\
+        0 & 1 & 1 & 0 & 0\\
+        0 & 1 & 1 & 1 & 0\\
+        1 & 0 & 0 & 0 & 1\\
+        1 & 0 & 0 & 1 & 0\\
+        1 & 0 & 1 & 0 & 0\\
+        1 & 0 & 1 & 1 & 0\\
+        1 & 1 & 0 & 0 & 0\\
+        1 & 1 & 0 & 1 & 0\\
+        1 & 1 & 1 & 0 & 0\\
+        1 & 1 & 1 & 1 & 0\\
+    \end{tabular}
+  \end{center}
+\item $f_{FND}(x_0,x_1,x_2,x_3)=\!x_0\,\!x_1x_2x_3 + \!x_0x_1\!x_2\,\!x_3 + 
+  \!x_0x_1\!x_2x_3 + x_0\!x_1\,\!x_2\,\!x_3\Rightarrow$\\
+  $f(x_0,x_1,x_2,x_3)=\!x_0\,\!x_1x_2x_3 + \!x_0x_1\!x_2 + x_0\!x_1\!x_2\!x_3$
+\end{enumerate}
+\end{solution}
+
+}
+\def\FNDi{ 
+  \question[1,5] Ache a forma normal disjuntiva, simplifique e
+  desenhe o circuito lógico combinacional a partir da seguinte
+  tabela-verdade:
+
+  \begin{center}
+    \begin{tabular}{ccc|c}\hline
+      $a$ & $b$ & $c$ & $f(a,b,c)$\\\hline 
+      0 & 0 &0  &1\\
+      0 & 0 &1  &0\\
+      0 & 1 &0  &1\\
+      0 & 1 &1  &0\\
+      1 & 0 &0  &1\\
+      1 & 0 &1  &0\\
+      1 & 1 &0  &1\\
+      1 & 1 &1  &0\\\hline
+    \end{tabular}
+  \end{center}
+
+  \begin{solution}
+    $f_{FND}(a,b,c)=\!a\!b\!c + \!ab\!c + a\!b\!c + ab\!c$\\
+    $f(a,b,c)=\!c$
+  \end{solution}
+}
+
+\def\FNDii{
+
+  \question[1,5]~Ache a forma normal disjuntiva, simplifique e desenhe o
+  circuito lógico combinacional a partir da seguinte tabela-verdade:
+
+  \begin{center}
+    \begin{tabular}{ccc|c}\hline
+      $a$ & $b$ & $c$ & $f(a,b,c)$\\\hline 
+      0 & 0 &0  &0\\
+      0 & 0 &1  &0\\
+      0 & 1 &0  &0\\
+      0 & 1 &1  &1\\
+      1 & 0 &0  &0\\
+      1 & 0 &1  &1\\
+      1 & 1 &0  &1\\
+      1 & 1 &1  &1\\\hline
+    \end{tabular}
+  \end{center}
+  
+  \begin{solution}
+    $f_{FND}(a,b,c) = \!abc + a\!bc +ab\!c + abc$\\
+    $f(a,b,c) = ab + bc + ac$
+  \end{solution}
+
+}\def\DFF{
+\question[1,5]
+Para o flip-flop da Figura~\ref{fig:dff}, desenhe a forma de onda na
+saída em função dos sinais aplicados.
+
+\begin{figure}[ht]
+\centering
+\input{\imgdir/dff-clr.tex}
+\caption{Flip-flop tipo D com entrada {\em CLEAR}.}
+\label{fig:dff}
+\end{figure}
+
+\begin{center}
+\begin{tikztimingtable}[timing/slope=0,xscale=2,
+  yscale=1.5,semithick]
+  Clock & 12{C} \\
+  CLR &  5.75L .5H 5.75L\\
+  Entrada D &2H 2L 4H 4L\\
+  Saída Q &   \\
+  \extracode
+  \begin{pgfonlayer}{background}
+    \begin{scope}[gray ,semitransparent,dashed,semithick]
+      \foreach \x in {1,...,12}
+      \draw (\x,1) -- (\x,-8);
+    \end{scope}
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\end{center}
+
+\begin{solution}
+\begin{center}
+\begin{tikztimingtable}[timing/slope=0,xscale=2,
+  yscale=1.5,semithick]
+  Clock & 12{C} \\
+  CLR &  5.75L .5H 5.75L\\
+  Entrada D &2H 2L 4H 4L\\
+  Saída Q &  1L 2H 2L .75H 1.25L 2H 3L\\
+  \extracode
+  \begin{pgfonlayer}{background}
+    \begin{scope}[gray ,semitransparent,dashed,semithick]
+      \foreach \x in {1,...,12}
+      \draw (\x,1) -- (\x,-8);
+    \end{scope}
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\end{center}
+\end{solution}
+
+}
+
+\def\DTFF{ \question[1,5]~A Figura~\ref{fig:dtff} mostra as formas de
+  onda aplicadas a um flip-flop tipo D disparado por borda de
+  descida. Este mesmo flip-flop pode ser comutado para funcionar como
+  um flip-flop do tipo T. Desenhe a forma de onda de saída para o
+  flip-flop atuando como tipo D ($Q_D$) e tipo T ($Q_T$).
+
+
+\begin{figure}
+\begin{center}
+\begin{tikztimingtable}[timing/slope=0,xscale=2,
+  yscale=1.5,semithick]
+  Clock & 9{C} \\
+  Entrada D & 1.5L 2H 1L 1H .25L 1.8H 1.4L\\
+  Saída $Q_D$ &   \\
+  Saída $Q_T$ &   \\
+  \extracode
+  \begin{pgfonlayer}{background}
+    \begin{scope}[gray ,semitransparent,dashed,semithick]
+      \foreach \x in {1,...,9}
+      \draw (\x,1) -- (\x,-8);
+    \end{scope}
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\end{center}
+\caption{Sinais de entrada para um flip-flop do tipo D, que pode ser
+  comutado para o tipo T.}
+\label{fig:dtff}
+\end{figure}
+
+}
+
+\def\COUNTER{
+
+\question[2]
+
+\begin{parts}
+
+\part
+
+Projete um contador ASSÍNCRONO que conte de 0 a 9 utilizando FF
+ativados na borda de descida.
+
+\part
+Qual o tempo mínimo que deve ser esperado para fazer a leitura das
+saídas após a borda de descida do clock?  
+
+\noindent Obs: Considere que cada FF demore 200ns para
+atualizar a saída após a borda de descida do clock
+
+\end{parts}
+
+}

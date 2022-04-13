@@ -1,0 +1,50 @@
+\begin{circuitikz}
+\def\shift{2cm}
+
+\colorlet{aincolor}{green!75!black}
+\colorlet{bincolor}{green!35!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    header/.style={minimum width=1.*\shift,white},
+    a header/.style={header, fill=aincolor},
+    b header/.style={header, fill=bincolor},
+    out header/.style={header, fill=outcolor}
+}
+
+%GATES
+\draw (0,1) node[xor port] (XOR) {};
+\draw (0,-1) node[and port] (AND) {};
+
+%WIRES
+
+% PATHS
+\path[outcolor] (XOR) -- +(1,0) node[above] {Soma};
+\path[outcolor] (AND) -- +(1,0) node[below] {Vai-um};
+
+\path[aincolor]  (XOR.in 1) -- +(-1,0) node[above] (A) {A};
+\path[bincolor]   (AND.in 2) -- +(-1,0) node[above] (B) {B};
+\path[aincolor]  (A.south east) node[circ] {} -- +(0,-2) -- (AND.in 1);
+\path[aincolor]  (B.south east)+(.5,0) node[circ] {} -- +(.5,2) -- (XOR.in 2);
+
+%\path[incolor]  (B) -| (AND.in 2);
+
+
+\matrix [right of=XOR, xshift=2*\shift,yshift=-.85\shift] (truth table) {
+    \node[a header]{Entradas};&\node[out header]{Sa\'idas};\\     
+    \node[b header]{A\ \ B};&\node[out header]{Soma\ \ Vai-um};\\     
+    \node{0\ \ 0}; & \node{0\ \ \ 0};\\
+    \node{0\ \ 1}; & \node{1\ \ \ 0};\\
+    \node{1\ \ 0}; & \node{1\ \ \ 0};\\
+    \node{1\ \ 1}; & \node{0\ \ \ 1};\\
+};
+
+\node [above of=truth table, yshift=.5*\shift] {Tabela-Verdade};
+
+\node [above of=XOR, yshift=.25*\shift] (CARRY) {Vai-um$=A.B$};
+\node [above of=CARRY,yshift=-.25*\shift] (SUM) {Soma$=A\bigoplus B$};
+
+\end{circuitikz}

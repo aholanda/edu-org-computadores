@@ -1,0 +1,186 @@
+
+\lecture{Portas lógicas}{gates}
+
+\section{\insertlecture}
+
+    \def\xshift{0.75cm} % deslocamento em x dos sinais
+    \def\onein{\scriptsize A}
+   \def\anotherin{\scriptsize B}
+   \def\out{\scriptsize X}
+
+\subsection{Álgebra booleana}
+\begin{frame}{Álgebra booleana}
+
+  Todas as variáveis têm valor $0$ ou $1$ e nas formulações mais
+  comuns são 3 o número de operadores:
+  \begin{itemize}
+  \item<2> Operador binário $OR$ escrito como $+$ \hspace{1cm}
+    $^\text{exemplo}\rightarrow$ $A+B$
+  \item<2> Operador binário $AND$ escrito como $\cdot$  \hspace{1cm}   $^\text{exemplo}\rightarrow$ $A\cdot{}B$
+  \item<2> Operador unário $NOT$ escrito como $\overline{A}$ \hspace{1cm}   $^\text{exemplo}\rightarrow$ $\overline{A}$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Funções lógicas básicas}
+  \begin{block}{Portas lógicas}
+    Grupo de circuitos básicos utilizados na eletrônica digital que
+    implementam a álgebra booleana.
+  \end{block}
+\bigskip  
+\scriptsize
+\only<1>{
+  \begin{columns}
+
+    \hspace{-1.5cm}
+    \begin{column}{2cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        
+        \node[gatesty,not gate] (NOT) {\scriptsize{NOT}};
+        \node[] [above of=NOT] {$X=\overline{A}$};
+        \draw (NOT.west) -- ([xshift=-\xshift] NOT.west) node[above] {\onein};
+        \draw (NOT.output) -- ([xshift=\xshift] NOT.output) node[above] {\out};
+        
+      \end{tikzpicture}
+      
+      \begin{center}
+      \begin{tabular}[ht]{c||c}
+        \onein & \out \\ \hline
+        0 & 1 \\
+        1 & 0 \\
+      \end{tabular}
+    \end{center}
+    
+    \end{column}
+
+    \hspace{0.5cm}
+
+    \begin{column}{2cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        \node[gatesty,or gate] (OR) {\scriptsize{OR}};
+        \node[] [above of=OR] {$X=A+B$};
+        \draw (OR.input 1) -- ([xshift=-\xshift] OR.input 1) node[left] {\onein};
+        \draw (OR.input 2) -- ([xshift=-\xshift] OR.input 2)
+        node[left] {\anotherin};
+        \draw (OR.output) -- ([xshift=\xshift] OR.output) node[above] {\out};
+      \end{tikzpicture}
+
+      \begin{center}
+      \begin{tabular}[ht]{c|c||c}
+        \onein & \anotherin & \out \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 1 \\
+      \end{tabular}
+    \end{center}
+    
+    \end{column}
+    
+    \hspace{0.5cm}
+    \begin{column}{2cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        \node[gatesty,and gate] (AND) {\scriptsize{AND}};
+        \node[] [above of=AND] {$X=A\cdot{}B$};
+        \draw (AND.input 1) -- ([xshift=-\xshift] AND.input 1) node[left] {\onein};
+        \draw (AND.input 2) -- ([xshift=-\xshift] AND.input 2)
+        node[left] {\anotherin};
+        \draw (AND.output) -- ([xshift=\xshift] AND.output) node[above] {\out};
+      \end{tikzpicture}
+
+      \begin{center}
+      \begin{tabular}[ht]{c|c||c}
+        \onein & \anotherin & \out \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\
+      \end{tabular}
+    \end{center}
+    
+    \end{column}
+
+  \end{columns}
+} % end of only<1>  
+
+  \only<2>{
+  \begin{columns}
+        \hspace{-1.5cm}
+
+    \begin{column}{1.9cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        \node[gatesty,nor gate] (NOR) {\scriptsize{NOR}};
+        \node[] [above of=NOR] {$X=\overline{A+B}$};
+        \draw (NOR.input 1) -- ([xshift=-\xshift] NOR.input 1) node[left] {\onein};
+        \draw (NOR.input 2) -- ([xshift=-\xshift] NOR.input 2)
+        node[left] {\anotherin};
+        \draw (NOR.output) -- ([xshift=\xshift] NOR.output) node[above] {\out};
+      \end{tikzpicture}
+
+      \begin{center}
+      \begin{tabular}[ht]{c|c||c}
+        \onein & \anotherin & \out \\ \hline
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\
+      \end{tabular}
+    \end{center}
+  \end{column}
+    
+    \hspace{.5cm}
+    \begin{column}{2cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        \node[gatesty,nand gate] (NAND) {\scriptsize{NAND}};
+        \node[] [above of=NAND] {$X=\overline{A\cdot{}B}$};
+        \draw (NAND.input 1) -- ([xshift=-\xshift] NAND.input 1) node[left] {\onein};
+        \draw (NAND.input 2) -- ([xshift=-\xshift] NAND.input 2)
+        node[left] {\anotherin};
+        \draw (NAND.output) -- ([xshift=\xshift] NAND.output) node[above] {\out};
+      \end{tikzpicture}
+
+      \begin{center}
+      \begin{tabular}[ht]{c|c||c}
+        \onein & \anotherin & \out \\ \hline
+        0 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+      \end{tabular}
+    \end{center}
+  \end{column}
+
+
+    \hspace{.5cm}
+    \begin{column}{2cm}
+      \begin{tikzpicture}[use US style logic gates,
+        gatesty/.style={draw,minimum width=1.5cm}]
+        \node[gatesty,xor gate] (thegate) {\scriptsize{XOR}};
+        \node[] [above of=thegate] {$X=A\oplus{}B$};
+        \draw (thegate.input 1) -- ([xshift=-\xshift] thegate.input 1) node[left] {\onein};
+        \draw (thegate.input 2) -- ([xshift=-\xshift] thegate.input 2)
+        node[left] {\anotherin};
+        \draw (thegate.output) -- ([xshift=\xshift] thegate.output) node[above] {\out};
+      \end{tikzpicture}
+
+      \begin{center}
+      \begin{tabular}[ht]{c|c||c}
+        \onein & \anotherin & \out \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+      \end{tabular}
+    \end{center}
+  \end{column}
+
+  \end{columns}
+  } % only 2
+
+\end{frame}

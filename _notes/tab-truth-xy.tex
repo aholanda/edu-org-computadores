@@ -1,0 +1,52 @@
+% The sixteen logical operations on two variables
+% source: TAOCP4A, page 49
+\def\lnot#1{\overline{#1}}
+\bigskip
+$$\vbox{
+\settabs 
+\+\hfil Tabela-\qquad 
+        & \quad$x\lor \lnot{y},\ x\supset y,\ x\Rightarrow y,\ [x\leq y],\ y^x$
+        & \qquad$\land$\qquad 
+        &  Não-disjunção; junção negada; {\tt neither}$\ldots${\tt nor} \cr\hrule
+\+\strut Tabela- & \hfil Nova e velha  & Símbolo do &  \hfil\qquad Nome(s) \cr
+\+\strut verdade & \hfil notações & operador & \cr\hrule
+\+\strut\hfil 0000\hfil & \hfil $0$    & \hfil$\perp$ 
+              & Contradi\c{c}ão; falso, constante {\tt 0} \cr
+\+\strut\hfil 0001\hfil & \hfil $xy, x \land y,\ x\&y$ & & Conjun\c{c}ão; {\tt and}\cr
+\+\strut\hfil 0010\hfil & \hfil $x\land\lnot{y},\ x\not\supset y,\ [x>y]$ 
+                   & \hfil$\lnot{\supset}$
+                   & Não-implicação; diferença; {\tt but not} \cr
+\+\strut\hfil 0011\hfil & \hfil $x$ & & Projeção à esquerda \cr % primeiro ditador?
+\+\strut\hfil 0100\hfil & \hfil $\lnot{x}\land y,\ x\not\subset y,\ [x<y]$ 
+                   & \hfil$\lnot{\subset}$ 
+                   & Não-implicação reversa; {\tt not}$\dots${\tt but} \cr
+\+\strut\hfil 0101\hfil & \hfil $y$ & & Projeção à direita \cr % segundo ditador?
+\+\strut\hfil 0110\hfil 
+              & \hfil $x\oplus y,\ x\not\equiv y,\ x\hat{\ \ }y$ 
+              & \hfil$\oplus$ 
+              & Disjunção exclusiva; não-equivalência; {\tt xor}\cr
+\+\strut\hfil 0111\hfil & \hfil $x\lor y,\ x|y$ 
+                   & \hfil$\lor$ 
+                   & (Inclusive) disjunção; {\tt or} \cr
+\+\strut\hfil 1000\hfil & 
+  \hfil $\lnot{x}\land\lnot{y},\ \lnot{x\lor y},\ x\lnot{\lor} y,\ x\downarrow y$ 
+  & \hfil$\lnot\lor$ & Não-disjunção; junção negada; {\tt neither}$\ldots${\tt nor} \cr
+\+\strut\hfil 1001\hfil & \hfil $x\equiv y,\ x\leftrightarrow y,\ x\Leftrightarrow y$ 
+              & \hfil$\equiv$ &
+        & Equivalência; se e somente se; {\tt iff} \cr
+\+\strut\hfil 1010\hfil & \hfil $\lnot{y},\ \neg y,\ !y,\ \sim\kern-.25em y$ & 
+              & Complemento à direita \cr
+\+\strut\hfil 1011\hfil 
+              & \hfil $x\lor \lnot{y},\ x\supset y,\ x\Rightarrow y,\ [x\leq y],\ y^x$ 
+              & \hfil$\supset$
+              & Implicação; somente se; {\tt if}$\dots${\tt them}\cr
+\+\strut\hfil 
+        1101\hfil 
+        & \hfil$\lnot{x}\lor\not{y},\ \lnot{x\land y},\ x\lnot{\land}y, x|y$ 
+        & \hfil $\lnot{\land}$ 
+        & Não-conjunção; não somente$\dots$ e; {\tt nand} \cr
+\+\strut\hfil 
+        1111\hfil 
+        & \hfil $1$ 
+        & \hfil $\top$ 
+        & Afirmação; verdadeiro; tautologia; constante {\tt 1}\cr\hrule}$$

@@ -1,0 +1,148 @@
+\lecture{Representação de caracteres no computador}{code}
+
+\lecturetitle{\insertlecture}{\course}
+
+\frame{\maketitle}
+
+\section{Texto}
+
+\subsection{Padrão ASCII}
+
+\begin{frame}{Padrão ASCII}
+  O padrão \alert{ASCII} ({\em American Standard Code for Information
+    Interchange}) foi desenvolvido na década de 1960 para padronizar a
+  comunicação de mensagens.
+
+  \begin{itemize}
+  \item 8 bits: 7 para codificação e 1 para detecção de erro
+  \item 128 códigos: 95 gráfico e 33 de controle
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Código gráfico}{ASCII}
+
+  Parte da tabela ASCII para representação de algumas letras.
+  \bigskip
+  \footnotesize
+\begin{columns}
+\begin{column}{.5\textwidth}
+  \begin{tabular}{|c|c|c|c|c|}\hline
+    \bf bin &	\bf oct &\bf	dec &\bf	hex &\bf	letra\\\hline
+  0100 0001 &	101 &	65 &	41 &	A\\\hline
+  0100 0010 &	102 &	66 &	42 &	B\\\hline
+  0100 0011 &	103 &	67 &	43 &	C\\\hline
+  0100 0100 &	104 &	68 &	44 &	D\\\hline
+  0100 0101 &	105 &	69 &	45 &	E\\\hline
+  0100 0110 &	106 &	70 &	46 &	F\\\hline
+  0100 0111 &	107 &	71 &	47 &	G\\\hline
+  0100 1000 &	110 &	72 &	48 &	H\\\hline
+  0100 1001 &	111 &	73 &	49 &	I\\\hline
+\end{tabular}
+\end{column}
+\begin{column}{.5\textwidth}
+  \begin{tabular}{|c|c|c|c|c|}\hline
+ \bf bin &	\bf oct &\bf	dec &\bf	hex &\bf	letra\\\hline
+   0110 0001 &	141 &	97 &	61 &	a \\\hline
+    0110 0010 &	142 &	98 &	62 &	b \\\hline
+    0110 0011 &	143 &	99 &	63 &	c \\\hline
+    0110 0100 &	144 &	100 &	64 &	d \\\hline
+    0110 0101 &	145 &	101 &	65 &	e \\\hline
+    0110 0110 &	146 &	102 &	66 &	f \\\hline
+    0110 0111 &	147 &	103 &	67 &	g \\\hline
+    0110 1000 &	150 &	104 &	68 &	h \\\hline
+    0110 1001 &	151 &	105 &	69 &	i \\\hline
+  \end{tabular}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Dígitos}{ASCII}
+
+  Representação dos dígitos:\bigskip
+  
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}\hline
+    \bf bin &	\bf oct &\bf	dec &\bf	hex &\bf dígito\\\hline
+    0011 0001 &	061 &	49 &	31 &	1  \\\hline
+    0011 0010 &	062 &	50 &	32 &	2 \\\hline
+    0011 0011 &	063 &	51 &	33 &	3 \\\hline
+    0011 0100 &	064 &	52 &	34 &	4 \\\hline
+    0011 0101 &	065 &	53 &	35 &	5 \\\hline
+    0011 0110 &	066 &	54 &	36 &	6 \\\hline
+    0011 0111 &	067 &	55 &	37 &	7 \\\hline
+    0011 1000 &	070 &	56 &	38 &	8 \\\hline
+    0011 1001 &	071 &	57 &	39 &	9 \\\hline
+  \end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Códigos de controle}{ASCII}
+  
+  Alguns códigos de controle:\bigskip
+  
+  \begin{tabular}{|c|c|c|c|c|c|}\hline
+    \bf bin &	\bf oct &\bf	dec &\bf	hex &\bf código	em C & \bf função \\\hline
+    0000 0000 &	000 &	00 &	00 	& 	 	$\backslash$0    &	nulo  \\\hline
+    0000 1001 &	011 &	09 &	09 	& 	$\backslash$t & tabulação horizontal \\\hline
+    0000 1010 &	012 &	10 &	0A 	&	$\backslash$n & nova linha \\\hline
+    0001 1011 &	033 &	27 &	1B 	& 	              & escapar (Esc)  \\\hline
+    0111 1111 &	177 &	127 &	7F 	& 	 	      & apagar (Del) \\\hline
+  \end{tabular}
+
+\end{frame}
+
+\subsection{Padrão Unicode}
+
+\begin{frame}{Padrão Unicode}
+  
+  O Padrão \alert{\href{http://www.unicode.org/}{Unicode}} é usado
+  para representação de texto no computador, englobando a maioria das
+  línguas existentes.
+
+  O padrão ISO/IEC~10646 suporta 3 formatos de codificação:
+
+  \begin{description}
+  \item[UTF-8:] Os caracteres possuem tamanho variável e correspondência com o ASCII.
+  \item[UTF-16] Representa a maioria dos caracteres com 16 bits.
+  \item[UTF-32] Possui tamanho fixo de 32 bits, usado quando não houver preocupação com 
+    armazenamento.
+  \end{description}
+  
+  Todas as codificações usam 4 bytes no máximo.
+
+\end{frame}
+
+\begin{frame}{Codificação UTF-8}{Unicode}
+  
+  A codificação UTF-8 foi desenvolvida por Ken Thompsom e Rob Pike em
+  1992, com o objetivo de ser compatível com o padrão ASCII e evitar
+  problemas de portabilidade devido à representação de bits.\medskip
+
+  O padrão é recomendado pelo consórcio W3C e {\em Internet Mail} para
+  representação dos caracteres.\medskip
+  
+  Exemplo: {\em tag} HTML indicando o uso da codificação UTF-8\medskip 
+ 
+  {\tt <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />}
+  
+
+\end{frame}
+
+\begin{frame}{Codificação UTF-8}{Unicode}
+  
+  Boa parte dos sistemas operacionais e linguagens de programação
+  atuais utilizam UTF-8 para codificação dos caracteres.\medskip
+  
+  O número de bytes utilizados varia de acordo com o conjunto de
+  caracteres a serem representados:
+
+  \begin{description}
+  \item[1 byte] Caracteres ASCII.
+  \item[2 bytes] Alfabetos latino, grego, cirílico, arábico, hebreu, armênio.
+  \item[3 bytes] Restante das línguas.
+  \item[4 bytes] Símbolos matemáticos, símbolos pictóricos.
+  \end{description}
+
+\end{frame}

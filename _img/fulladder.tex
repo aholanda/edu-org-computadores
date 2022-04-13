@@ -1,0 +1,50 @@
+\begin{circuitikz}
+\def\shift{2cm}
+
+\colorlet{aincolor}{green!75!black}
+\colorlet{bincolor}{blue!35!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    header/.style={minimum width=1.*\shift,white},
+    a header/.style={header, fill=aincolor},
+    b header/.style={header, fill=bincolor},
+    out header/.style={header, fill=outcolor}
+}
+
+%GATES
+\draw (0,1.54) node[xor port] (XOR) {};
+\draw (2.5,1.25) node[xor port] (XOR SUM) {};
+
+\draw (1.75,0) node[and port] (AND CIN) {};
+
+\draw (3.5,-1.25) node[or port] (COUT) {};
+\draw (0,-1.5) node[and port] (AND) {};
+
+%WIRES
+
+% PATHS
+\path[outcolor] (XOR SUM.out) -- +(2,0) node[above] {$S$};
+\path[outcolor] (COUT.out) -- +(1,0) node[below] {$Vai$-um};
+
+\path[aincolor]  (XOR.in 1) -- +(-1,0) node[above] (A) {$A$};
+\path[bincolor]   (AND.in 2) -- +(-1,0) node[above] (B) {$B$};
+\path[aincolor]  (A.south east) node[circ] {} -- +(0,-1) |- (AND.in 1);
+\path[aincolor]  (B.south east)+(.5,0) node[circ] {} -- +(.5,2) |- (XOR.in 2);
+
+%%CIN
+\path[brown!45!black] (AND CIN.in 2) -- +(-2.75,0) node[above] {$Vem$-um};
+
+%%SUM
+\path (XOR.out) -- (XOR SUM.in 1);
+\path (AND CIN.in 1) |- node[circ] {} (XOR SUM.in 1);
+
+%%COUT
+\path (AND CIN.out) -| (COUT.in 1);
+\path (AND.out) -- (COUT.in 2);
+\path (XOR SUM.in 2) -- +(-1.25,0) |- node[circ] {} (AND CIN.in 2);
+
+\end{circuitikz}

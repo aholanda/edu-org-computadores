@@ -1,0 +1,46 @@
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+\begin{circuitikz}
+\def\shift{2cm}
+
+\colorlet{aincolor}{green!75!black}
+\colorlet{bincolor}{green!35!black}
+\colorlet{outcolor}{red!80!black}
+
+\tikzset{
+    every path/.style={->, >=latex, draw},
+    every node/.style={font=\scriptsize}, 
+    wire/.style={->, >=latex, draw},
+    adder/.style={minimum width=3cm, minimum height=3cm,draw},
+    header/.style={minimum width=1.*\shift,white},
+    a header/.style={header, fill=aincolor},
+    b header/.style={header, fill=bincolor},
+    out header/.style={header, fill=outcolor}
+}
+
+\node[adder] (ADDER) {\LARGE $+$};
+\path (ADDER.north)+(0,0.5*\shift) node[above] {C$_{in}$} -- (ADDER);
+\path (ADDER.south) -- +(0,-0.5*\shift) node[below] {C$_{out}$};
+\path (ADDER.east) -- +(0.5*\shift,0) node[below] {S};
+\path (ADDER.west)+(-.5*\shift,.25*\shift)  node[above] {A}  -- +(0,.25*\shift);
+\path (ADDER.west)+(-.5*\shift,-.25*\shift) node[below] {B} -- +(0,-.25*\shift);
+
+\matrix [right of=ADDER, xshift=2*\shift,yshift=-.25\shift] (truth table) {
+    \node[a header]{Entradas};&\node[out header]{Sa\'idas};\\     
+    \node[b header]{A\ \ \ \ B\ \ \ C$_{in}$};&\node[out header]{C$_{out}$\ \ \ S};\\     
+    \node{0\ \ \ \ 0\ \ \ \ 0}; & \node{0\ \ \ \ \ 0};\\
+    \node{0\ \ \ \ 0\ \ \ \ 1}; & \node{0\ \ \ \ \ 1};\\
+    \node{0\ \ \ \ 1\ \ \ \ 0}; & \node{0\ \ \ \ \ 1};\\
+    \node{0\ \ \ \ 1\ \ \ \ 1}; & \node{1\ \ \ \ \ 0};\\
+    \node{1\ \ \ \ 0\ \ \ \ 0}; & \node{0\ \ \ \ \ 1};\\
+    \node{1\ \ \ \ 0\ \ \ \ 1}; & \node{1\ \ \ \ \ 0};\\
+    \node{1\ \ \ \ 1\ \ \ \ 0}; & \node{1\ \ \ \ \ 0};\\
+    \node{1\ \ \ \ 1\ \ \ \ 1}; & \node{1\ \ \ \ \ 1};\\
+};
+
+\node [above of=truth table, yshift=\shift] {Tabela-Verdade};
+
+\end{circuitikz}

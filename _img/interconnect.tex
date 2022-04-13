@@ -1,0 +1,44 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../notes"
+%%% End: 
+
+\def\intershift{1.2cm}
+\begin{tikzpicture}
+  \tikzset{scale=.65,
+    every node/.style={font=\scriptsize,text centered},
+    every path/.style={draw},
+    disk/.style={cylinder,shape border rotate=90,aspect=0.5,
+      minimum width=1cm,minimum height=1.75cm,draw},
+  dev/.style={text width=1.5cm,anchor=west,draw}}
+
+  \node[dev] (proc) at (0,0) {Processador};
+  \node[dev,text width=1cm] (cache) [below of=proc] {Cache};
+  \node[minimum width=7*\intershift,anchor=west,draw] (bus)  [below of=cache] {Interconexão de memória e entrada e saída};
+  \node[dev] (mem) [below of=bus,xshift=-1.5*\intershift,xshift=-2*\intershift] {Memória principal};
+  \node[dev] (diskcon) [right of=mem,xshift=1.5*\intershift] {Controlador de E/S};
+  \node[dev] (videocon) [right of=diskcon,xshift=1.5*\intershift] {Controlador de E/S};
+  \node[dev] (netcon) [right of=videocon,xshift=1.5*\intershift] {Controlador de E/S};
+  % dispositivos
+  \node[disk] (disk1) [below of=diskcon,xshift=-.55*\intershift,yshift=-\intershift] {Disco};
+  \node[disk] (disk2) [below of=diskcon,xshift=.55*\intershift,yshift=-\intershift] {Disco};
+  \node[draw] (video) [below of=videocon] {Saída gráfica};
+  \node[tape,minimum width=2cm,draw] (net) [below of=netcon] {Rede};
+  % paths
+  %% bus
+  \path (proc) -- (cache);
+  \path (cache) -- (bus);
+  \path (mem) -- (bus.south west);
+  \path (diskcon) -- (bus);
+  \path (videocon) -- (bus);
+  \path (netcon) -- (bus.south east);
+  %% disks
+  \path (diskcon) -- (disk1);
+  \path (diskcon) -- (disk2);
+  %% video
+  \draw (videocon) -- (video);
+  %% net
+  \draw (netcon) -- (net);
+
+\end{tikzpicture}

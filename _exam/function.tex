@@ -1,0 +1,245 @@
+%%
+% Local variables:
+% mode: latex
+% End:
+%%
+
+\setcounter{exno}{0}
+
+\section*{Funções Booleanas}
+
+\exercise~Faça a tabela-verdade para as funções Booleanas 
+definidas por:
+
+\begin{enumerate}[a)]
+\item $f(x_1,x_2,x_3) = x_1(\~x_2 \+ x_3)$
+\item $f(a,b,c) = a\~c\+bc\+\~ac$
+\end{enumerate}
+
+\exercise~Ache os mintermos, maxtermos das seguintes funções
+Booleanas:
+
+\begin{enumerate}[a)]
+\item $f(a,b,c) = ab\+ \~c$
+\item $f(x_1, x_2, x_3) = (\~x_1 \+ x_2) (\~x_3 \+ x_2)$
+\end{enumerate}
+
+
+\exercise~Ache a forma normal disjuntiva (FND) e forma normal
+conjuntiva (FNC) das funções Booleanas para as seguintes
+tabelas-verdade:
+
+\begin{enumerate}[a)]
+\begin{minipage}{.5\textwidth}
+\item $1010$
+\item $1101$
+\item $1000\ 1001$
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\item $0010\ 1001$
+\item $1000\ 1001\ 0010\ 1001$
+\item $0001\ 1100\ 0100\ 1010$
+\end{minipage}
+\end{enumerate}
+
+\exercise~Construa a tabela contendo somente os mintermos das
+seguintes funções Booleanas na FND:
+
+\begin{enumerate}[a)]
+\item $f(x,y)=xy\+\~xy$
+\item $f(a,b,c)=abc\+ab\~c\+a\~b\~c\+\~a\~bc\+\~a\~b\~c$
+\item $f(w,x,y,z)=w\~xyz\+wxy\~z\+wx\~y\ \~z\+\~wx\~yz\+\~wx\~y\ \~z\+\~w\ \~x\ \~y\ \~z$
+\end{enumerate}
+
+\exercise~Ache a forma normal disjuntiva, simplifique e desenhe o
+circuito lógico combinacional a partir da seguinte tabela-verdade:
+
+\begin{center}
+\begin{tabular}{ccc|c}
+$a$ & $b$ & $c$ & $f(a,b,c)$\\\hline 
+0 & 0 &0  &0\\
+0 & 0 &1  &0\\
+0 & 1 &0  &0\\
+0 & 1 &1  &1\\
+1 & 0 &0  &0\\
+1 & 0 &1  &1\\
+1 & 1 &0  &1\\
+1 & 1 &1  &1\\
+\end{tabular}
+\end{center}
+
+\exercise~Desenhe o circuito comutador mais simples que pode ser
+representado pela seguinte tabela:
+
+\begin{center}
+\begin{tabular}[h]{cccc|c}
+  $p$ & $q$ & $r$ & $s$ & saída \\\hline
+  1 & 1 & 1 & 1 & 1 \\
+  0 & 1 & 1 & 1 & 1 \\
+  1 & 1 & 0 & 1 & 1 \\
+  0 & 1 & 0 & 1 & 1 \\
+\end{tabular}
+\end{center}
+
+
+\pagebreak
+\footnotesize
+\section*{Solução}
+\setcounter{exno}{0}
+
+\exercise\bigskip
+
+\begin{minipage}[ht]{.5\linewidth}
+  a)\\
+  \begin{tabular}[ht]{ccc|c}
+    $x_1$ & $x_2$ & $x_3$ & $f(x_1,x_2,x_3)$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 0\\
+    1 & 0 & 0 & 0\\
+    1 & 0 & 1 & 1\\
+    1 & 1 & 0 & 1\\
+    1 & 1 & 1 & 1\\
+  \end{tabular}
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+  b)\\
+  \begin{tabular}[ht]{ccc|c}
+    $a$ & $b$ & $c$ & $f(a,b,c)$\\\hline
+    0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 1\\
+    0 & 1 & 0 & 0\\
+    0 & 1 & 1 & 1\\
+    1 & 0 & 0 & 1\\
+    1 & 0 & 1 & 0\\
+    1 & 1 & 0 & 0\\
+    1 & 1 & 1 & 1\\
+  \end{tabular}
+\end{minipage}
+
+\exercise\bigskip
+
+\begin{minipage}[ht]{.5\linewidth}
+  a)\\
+  \begin{tabular}[ht]{ccc|c|c|c}
+    $a$ & $b$ & $c$ & $f(a,b,c)$ & mintermo & maxtermo\\\hline
+    0 & 0 & 0 & 1  & $\!a\,\!b\,\!c$ & \\
+    0 & 0 & 1 & 0 & & $a+b+\!c$\\
+    0 & 1 & 0 & 1 & $\!ab\!c$ &\\
+    0 & 1 & 1 & 0 & & $a+\!b+\!c$\\
+    1 & 0 & 0 & 1 & $a\!b\,\!c$&\\
+    1 & 0 & 1 & 0 & & $\!a+b+\!c$\\
+    1 & 1 & 0 & 1 & $ab\!c$&\\
+    1 & 1 & 1 & 1 & $abc$ &\\
+  \end{tabular}
+\end{minipage}
+\begin{minipage}[ht]{.5\linewidth}
+  b)\\\def\x{x_1}\def\y{x_2}\def\z{x_3}
+  \begin{tabular}[ht]{ccc|c|c|c}
+    $\x$ & $\y$ & $\z$ & $f(\x,\y,\z)$ & mintermo & maxtermo\\\hline
+    0 & 0 & 0 & 1 & $\!\x\,\!\y\,\!\z$&\\
+    0 & 0 & 1 & 0 & & $\x + \y + \!\z$\\
+    0 & 1 & 0 & 1 & $\!\x\y\!\z$ &\\
+    0 & 1 & 1 & 1 & $\!\x\y\z$ &\\
+    1 & 0 & 0 & 0 & & $\!\x+\y+\z$\\
+    1 & 0 & 1 & 0 & & $\!\x+\y+\!\z$ \\
+    1 & 1 & 0 & 1 & $\x\y\!\z$&\\
+    1 & 1 & 1 & 1 & $\x\y\z$ &\\
+  \end{tabular}
+\end{minipage}
+
+\bigskip\exercise\smallskip
+
+\begin{enumerate}[a)]
+\item $f_{FND}(x,y) = \!x\,\!y + x\!y \qquad f_{FNC}(x,y)=(x+\!y)(\!x+\!y)$
+\item $f_{FND}(x,y) = \!x\,\!y + \!xy + xy \qquad f_{FNC}(x,y)=\!x+y$
+
+\item $f_{FND}(x,y,z)= \!x\,\!y\,\!z + x\!y\,\!z + xyz$\\
+  $f_{FNC}(x,y,z)=(x+y+\!z)(x+\!y+z)(x+\!y+\!z)(\!x+y+\!z)(\!x+\!y+z)$
+
+\item $f_{FND}(x,y,z)=\!xyz + x\!y\,\!z + xyz$\\
+  $f_{FNC}(x,y,z)(x+y+z)(x+y+\!z)(x+\!y+\!z)(\!x+y+\!z)(\!x+\!y+z)$
+
+\item $f_{FND}(x,y,z,w) = \!x\,\!y\,\!z\,\!w + \!xy\!z\,\!w + \!xyzw 
+  + x\!yz\!w + xy\!z\,\!w + xyzw$\\
+  $f_{FNC}(x,y,z,w) = (x+y+z+\!w)(x+y+\!z+w)(x+y+\!z+\!w)(x+\!y+z+\!w)
+  (x+\!y+\!z+w)(\!x+y+z+w)(\!x+y+z+\!w)(\!x+y+\!z+\!w)(\!x+\!y+z+\!w)
+  (\!x+\!y+\!z+w)$
+
+\item $f_{FND}(x,y,z,w) = \!x\,\!yzw + \!xy\!z\,\!w + \!xy\!zw + x\!y\,\!zw + 
+  xy\!z\,\!w + xyz\!w$\\
+  $f_{FNC}(x,y,z,w) = (x+y+z+w)(x+y+z+\!w)(x+y+\!z+w)(x+\!y+\!z+w)
+  (x+\!y+\!z+\!w)(\!x+y+z+w)(\!x+y+\!z+w)(\!x+y+\!z+\!w)
+  (\!x+\!y+z+\!w)(\!x+\!y+\!z+\!w)$
+\end{enumerate}
+
+\bigskip\exercise\smallskip
+
+\begin{minipage}[ht]{.3\linewidth}
+  \begin{tabular}[ht]{cc|c}
+    $x$ & $y$ & $f(x,y)$ \\\hline
+    0 & 1 & 1\\
+    1 & 1 & 1\\
+  \end{tabular}
+\end{minipage}
+\begin{minipage}[ht]{.3\linewidth}
+    \begin{tabular}[ht]{ccc|c}
+      $a$ & $b$ & $c$ &$f(a,b,c)$ \\\hline
+      0 & 0 & 0 & 1\\
+      0 & 0 & 1 & 1\\
+      1 & 0 & 0 & 1\\
+      1 & 1 & 0 & 1\\
+      1 & 1 & 1 & 1\\
+    \end{tabular}
+  \end{minipage}
+\begin{minipage}[ht]{.4\linewidth}
+    \begin{tabular}[ht]{cccc|c}
+      $w$ & $x$ & $y$ & $z$ &$f(w,x,y,z)$ \\\hline
+      0 & 0 & 0 & 0 &  1\\
+      0 & 1 & 0 & 0 & 1\\
+      0 & 1 & 0 & 1 & 1\\
+      1 & 1 & 0 & 0 & 1\\
+      1 & 0 & 1 & 1 & 1\\
+      1 & 1 & 1 & 0 & 1\\
+    \end{tabular}
+\end{minipage}
+
+\bigskip\exercise\smallskip
+
+$f_{FND}(a,b,c) = \!abc + a\!bc +ab\!c + abc$\\
+
+$f(a,b,c) = ab + bc + ac$
+
+\bigskip\noindent Circuito lógico\\
+
+\begin{circuitikz}\draw
+  (0,1.5) node[and port] (aband) {}
+  (0,0) node[and port] (bcand) {}
+  (0,-1.5) node[and port] (acand) {}
+  (2,.75) node[or port] (1stor) {}
+  (4,-.75) node[or port] (2ndor) {}
+  (aband.in 1)+(-2,0) node[left] (A) {$a$} -- (aband.in 1)
+  (aband.in 2)+(-1,0) node[left] (B) {$b$} -- (aband.in 2)
+  (bcand.in 2)+(-1,0) node[left] (C) {$c$} -- (bcand.in 2)
+  (2ndor.out) --  (2ndor.out)+(.5,0) node (F) {$f(a,b,c)$} 
+  (B) |- (bcand.in 1)
+  (C) |- (acand.in 1)
+  (A) |- (acand.in 2)
+  (aband.out) -| (1stor.in 1)
+  (bcand.out) -| (1stor.in 2)
+  (1stor.out) -| (2ndor.in 1)
+  (acand.out) -| (2ndor.in 2)
+;\end{circuitikz}
+
+\bigskip\exercise\smallskip
+
+$f_{FND}(p,q,r,s) = pqrs + \!pqrs + pq\!rs + \!pq\!rs \Rightarrow f(p,q,r,s)=qs$
+
+\bigskip\noindent Circuito comutador\\
+
+\begin{tikzpicture}[every path/.style={draw}]
+  \path (0,0) -- (1,0) node[right] {$q$};
+  \path (1.5,0) -- (2,0) node[right] {$s$};
+  \path (2.5,0) -- (3.5,0);
+\end{tikzpicture}
